@@ -22,4 +22,5 @@ export const prefixes = `
   PREFIX gn: <http://www.geonames.org/ontology#>
   PREFIX semparls: <http://ldf.fi/schema/semparl/>
   PREFIX nobel: <http://data.nobelprize.org/terms/>
+  PREFIX dblp: <https://dblp.org/rdf/schema#>
 `

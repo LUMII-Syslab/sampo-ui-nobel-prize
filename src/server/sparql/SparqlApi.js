@@ -23,6 +23,8 @@ export const runSelectQuery = async ({
   }
   const q = querystring.stringify({ query })
   try {
+    // Set timeout, as otherwise DBLP will time out. Even 1min is not enough for DBLP.
+    axios.defaults.timeout = 60000;
     const response = await axios({
       method: 'post',
       headers: headers,
