@@ -6,20 +6,8 @@
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
     "sparqlQueriesFile": "SparqlQueriesPerspective1.js",
-    "baseURIs": {
-        "Chemistry": {
-                      "baseURI": "http://data.nobelprize.org/resource/nobelprize/", 
-                      "URITemplate": "<BASE_URI>Chemistry/<LOCAL_ID>"},
-        "Physics": {
-                    "baseURI": "http://data.nobelprize.org/resource/nobelprize/", 
-                    "URITemplate": "<BASE_URI>Physics/<LOCAL_ID>"},
-        "Literature": {
-            "baseURI": "http://data.nobelprize.org/resource/nobelprize/", 
-            "URITemplate": "<BASE_URI>Literature/<LOCAL_ID>"},
-        "Peace": {
-            "baseURI": "http://data.nobelprize.org/resource/nobelprize/", 
-            "URITemplate": "<BASE_URI>Peace/<LOCAL_ID>"}
-    },
+    "baseURI": "http://data.nobelprize.org/resource/nobelprize/",
+    "URITemplate": "<BASE_URI><LOCAL_ID>",
     "facetClass": "nobel:NobelPrize",
     "frontPageImage": "main_page/works-452x262.jpg",
     "searchMode": "faceted-search",
@@ -100,6 +88,24 @@
             "sortValues": true,
             "numberedList": false,
             "minWidth": 250
+        },
+        {
+            "id":"year",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "minWidth": 250
+        },
+        {
+            "id":"motivation",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "minWidth": 250
         }
     ],
     "facets": {
@@ -111,10 +117,11 @@
             "facetType": "list",
             "filterType": "uriFilter",
             "predicate": "nobel:category",
+            "hideUnknownValue": true,
             "searchField": true,
             "sortButton": true,
             "sortBy": "instanceCount",
-            "sortByPredicate": "nobel:category/rdfs:label",
+            "sortByPredicate": "nobel:category",
             "sortDirection": "desc"
         }
     }

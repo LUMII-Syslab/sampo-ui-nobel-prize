@@ -1,17 +1,27 @@
 const perspectiveID = 'perspective1'
 
 export const workProperties = `
+    BIND(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1") as ?local_id)
+    # To use the same query block for paged and instance page, then we must decode from instance page last URL path the encoded resource URI.
+    BIND(IF(EXISTS {?id a nobel:NobelPrize .}, ?id, IRI(COALESCE(?final_id, CONCAT(REPLACE(STR(?id), "^(.*\\\\/).+", '$1'), REPLACE(?local_id, '___', '\\\\/'))))) AS ?final_id)
     {
-      ?id rdfs:label ?prefLabel__id ;
-          nobel:category ?category__id .
+      ?final_id rdfs:label ?prefLabel__id ;
+                nobel:category ?category__id ;
+                #TODO: Year might not always exist for a Nobel Prize instance. That is why we must use OPTIONAL.
+                nobel:year ?year__id .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-      BIND(REPLACE(STR(?category__id), "^.*\\\\/(.+)", "$1") AS ?category__prefLabel)
-      BIND(CONCAT("/${perspectiveID}/page/", ?category__prefLabel, REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-      BIND(?id as ?uri__id)
-      BIND(?id as ?uri__dataProviderUrl)
-      BIND(?id as ?uri__prefLabel)
+      BIND(STR(?year__id) AS ?year__prefLabel)
+      BIND(REPLACE(REPLACE(STR(?category__id), "^.*\\\\/(.+)", "$1"), "_"," ") AS ?category__prefLabel)
+      BIND(CONCAT("/${perspectiveID}/page/", ?category__prefLabel, "___", ?year__prefLabel) AS ?prefLabel__dataProviderUrl)
+      BIND(?final_id as ?uri__id)
+      BIND(?final_id as ?uri__dataProviderUrl)
+      BIND(?final_id as ?uri__prefLabel)
       FILTER(LANG(?prefLabel__prefLabel) = 'en')
+      
     }
+    OPTIONAL {?final_id nobel:motivation ?motivation__id .
+              BIND(?motivation__id AS ?motivation__prefLabel)
+              FILTER(LANG(?motivation__prefLabel) = 'en')}
 `
 
 export const knowledgeGraphMetadataQuery = `

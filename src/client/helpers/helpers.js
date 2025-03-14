@@ -179,6 +179,7 @@ export const generateLabelForMissingValue = ({ perspective, property }) => {
     intl.get('facetBar.defaultMissingValueLabel') || 'Unknown'
 }
 
+// Kods pieņem, ka local_id vienmēr sevī neietvers "/" simbolus.
 export const getLocalIDFromAppLocation = ({ location, perspectiveConfig }) => {
   const locationArr = location.pathname.split('/')
   let localID = locationArr.pop()
