@@ -1,9 +1,9 @@
-const perspectiveID = 'perspective1'
+const perspectiveID = 'nobelPrizes'
 
 export const workProperties = `
     BIND(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1") as ?local_id)
     # To use the same query block for paged and instance page, then we must decode from instance page last URL path the encoded resource URI.
-    BIND(IF(EXISTS {?id a nobel:NobelPrize .}, ?id, IRI(COALESCE(?final_id, CONCAT(REPLACE(STR(?id), "^(.*\\\\/).+", '$1'), REPLACE(?local_id, '___', '\\\\/'))))) AS ?final_id)
+    BIND(IF(EXISTS {?id a nobel:NobelPrize .}, ?id, IRI(CONCAT(REPLACE(STR(?id), "^(.*\\\\/).+", '$1'), REPLACE(?local_id, '___', '\\\\/')))) AS ?final_id)
     {
       ?final_id rdfs:label ?prefLabel__id ;
                 nobel:category ?category__id ;

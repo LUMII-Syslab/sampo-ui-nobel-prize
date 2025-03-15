@@ -1,14 +1,14 @@
 {
-    "id": "perspective2",
+    "id": "laureates",
     "endpoint": {
-        "url": "https://sparql.dblp.org/sparql",
+        "url": "http://85.254.199.72:8890/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
     "sparqlQueriesFile": "SparqlQueriesPerspective2.js",
-    "baseURI": "https://dblp.org/rec/books/acm/",
+    "baseURI": "http://data.nobelprize.org/resource/laureate/",
     "URITemplate": "<BASE_URI><LOCAL_ID>",
-    "facetClass": "dblp:Publication",
+    "facetClass": "nobel:Laureate",
     "frontPageImage": "main_page/works-452x262.jpg",
     "searchMode": "faceted-search",
     "enableDynamicLanguageChange": false,
@@ -18,7 +18,7 @@
     "defaultTab": "table",
     "defaultInstancePageTab": "table",
     "resultClasses": {
-        "perspective2": {
+        "laureates": {
             "paginatedResultsConfig": {
                 "tabID": 0,
                 "component": "ResultTable",
@@ -79,6 +79,79 @@
             "sortValues": true,
             "numberedList": false,
             "minWidth": 250
+        },
+        {
+            "id":"affiliation",
+            "valueType":"object",
+            "makeLink":true,
+            "externalLink":true,
+            "sortValues":true,
+            "numberedList":false,
+            "minWidth":250
+        },
+        {
+            "id": "birthPlaceLabel",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250
+        },
+        {
+            "id": "birthDate",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250
+        },
+        {
+            "id": "deathDate",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250
+        },
+        {
+            "id": "foundingDate",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250
+        },
+        {
+            "id": "foundingLocation",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250
+        },
+        {
+            "id": "gender",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250
+        },
+        {
+            "id": "fullName",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250,
+            "onlyOnInstancePage": true
         }
     ],
     "facets": {

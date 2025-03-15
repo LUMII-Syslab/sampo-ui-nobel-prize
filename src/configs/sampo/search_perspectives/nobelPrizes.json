@@ -1,7 +1,7 @@
 {
-    "id": "perspective1",
+    "id": "nobelPrizes",
     "endpoint": {
-        "url": "http://85.254.199.72:8890/sparql",
+        "url": "https://data.nobelprize.org/store/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -18,7 +18,7 @@
     "defaultTab": "table",
     "defaultInstancePageTab": "table",
     "resultClasses": {
-        "perspective1": {
+        "nobelPrizes": {
             "paginatedResultsConfig": {
                 "tabID": 0,
                 "component": "ResultTable",
@@ -113,16 +113,24 @@
             "sortByPredicate": "rdfs:label"
         },
         "category":{
-            "containerClass": "ten",
+            "containerClass": "six",
             "facetType": "list",
             "filterType": "uriFilter",
             "predicate": "nobel:category",
             "hideUnknownValue": true,
+            "labelPattern": "BIND(REPLACE(REPLACE(STR(?id), \"^.*\\\\/(.+)\", \"$1\"), \"_\",\" \") AS ?prefLabel)",
             "searchField": true,
             "sortButton": true,
             "sortBy": "instanceCount",
             "sortByPredicate": "nobel:category",
             "sortDirection": "desc"
+        },
+        "year":{
+            "sortByPredicate":"nobel:year",
+            "containerClass": "six",
+            "facetType": "integer",
+            "filterType": "integerFilter",
+            "predicate": "nobel:year"
         }
     }
 }

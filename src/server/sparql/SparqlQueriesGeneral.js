@@ -51,7 +51,7 @@ export const facetResultSetQuery = `
 `
 
 export const facetValuesQuery = `
-  SELECT DISTINCT ?id (COALESCE(STR(?prefLabel_), STR(?id)) AS ?prefLabel) ?selected ?parent ?instanceCount {
+  SELECT DISTINCT ?id ?prefLabel ?selected ?parent ?instanceCount {
     {
       {
         SELECT DISTINCT (count(DISTINCT ?instance) as ?instanceCount) ?id ?parent ?selected {

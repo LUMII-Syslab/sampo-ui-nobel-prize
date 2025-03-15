@@ -3,8 +3,8 @@
     "rootUrl": "",
     "perspectives": {
         "searchPerspectives": [
-            "perspective1",
-            "perspective2"
+            "nobelPrizes",
+            "laureates"
         ],
         "onlyInstancePages": [
             "manuscripts",
