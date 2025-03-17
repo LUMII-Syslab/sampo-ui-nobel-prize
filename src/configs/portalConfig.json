@@ -4,7 +4,8 @@
     "perspectives": {
         "searchPerspectives": [
             "nobelPrizes",
-            "laureates"
+            "laureates",
+            "universities"
         ],
         "onlyInstancePages": [
             "manuscripts",

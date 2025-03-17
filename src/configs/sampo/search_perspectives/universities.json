@@ -1,14 +1,14 @@
 {
-    "id": "laureates",
+    "id": "universities",
     "endpoint": {
         "url": "http://85.254.199.72:8890/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
-    "sparqlQueriesFile": "SparqlQueriesPerspective2.js",
-    "baseURI": "http://data.nobelprize.org/resource/laureate/",
+    "sparqlQueriesFile": "SparqlQueriesPerspective3.js",
+    "baseURI": "http://data.nobelprize.org/resource/university/",
     "URITemplate": "<BASE_URI><LOCAL_ID>",
-    "facetClass": "nobel:Laureate",
+    "facetClass": "dbo:University",
     "frontPageImage": "main_page/works-452x262.jpg",
     "searchMode": "faceted-search",
     "enableDynamicLanguageChange": false,
@@ -18,7 +18,7 @@
     "defaultTab": "table",
     "defaultInstancePageTab": "table",
     "resultClasses": {
-        "laureates": {
+        "universities": {
             "paginatedResultsConfig": {
                 "tabID": 0,
                 "component": "ResultTable",
@@ -81,16 +81,7 @@
             "minWidth": 250
         },
         {
-            "id":"affiliation",
-            "valueType":"object",
-            "makeLink":true,
-            "externalLink":true,
-            "sortValues":false,
-            "numberedList":false,
-            "minWidth":250
-        },
-        {
-            "id": "birthPlaceLabel",
+            "id": "country",
             "valueType": "object",
             "makeLink": true,
             "externalLink": true,
@@ -99,90 +90,18 @@
             "minWidth": 250
         },
         {
-            "id": "birthDate",
-            "valueType": "object",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": true,
-            "numberedList": false,
-            "minWidth": 250
-        },
-        {
-            "id": "deathDate",
-            "valueType": "object",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": true,
-            "numberedList": false,
-            "minWidth": 250
-        },
-        {
-            "id": "foundingDate",
-            "valueType": "object",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": true,
-            "numberedList": false,
-            "minWidth": 250
-        },
-        {
-            "id": "foundingLocation",
+            "id": "city",
             "valueType": "object",
             "makeLink": true,
             "externalLink": true,
             "sortValues": false,
             "numberedList": false,
             "minWidth": 250
-        },
-        {
-            "id": "gender",
-            "valueType": "object",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": false,
-            "numberedList": false,
-            "minWidth": 250
-        },
-        {
-            "id": "fullName",
-            "valueType": "object",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": true,
-            "numberedList": false,
-            "minWidth": 250,
-            "onlyOnInstancePage": true
         }
     ],
     "facets": {
         "prefLabel": {
             "sortByPredicate": "rdfs:label"
-        },
-        "affiliation": {
-            "containerClass": "ten",
-            "facetType": "list",
-            "filterType": "uriFilter",
-            "predicate": "dbo:affiliation",
-            "facetLabelPredicate":"rdfs:label",
-            "searchField": true,
-            "sortButton": false,
-            "sortBy": "instanceCount",
-            "sortDirection": "desc"
-        },
-        "laureateType": {
-            "containerClass": "two",
-            "facetType": "list",
-            "filterType": "uriFilter",
-            "hideUnknownValue": true,
-            "predicate": "rdf:type",
-            "labelPattern":"VALUES (?id ?prefLabel_) { (foaf:Person 'Person') (foaf:Organization 'Organization') }",
-            "searchField": false,
-            "sortButton": false,
-            "sortBy": "instanceCount",
-            "sortDirection": "desc"
-        },
-        "birthPlaceLabel": {
-            "sortByPredicate": "nobel:birthPlaceLabel"
         }
     }
 }
