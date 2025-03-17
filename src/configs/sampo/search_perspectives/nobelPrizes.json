@@ -1,7 +1,7 @@
 {
     "id": "nobelPrizes",
     "endpoint": {
-        "url": "https://data.nobelprize.org/store/sparql",
+        "url": "http://85.254.199.72:8890/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -118,7 +118,7 @@
             "filterType": "uriFilter",
             "predicate": "nobel:category",
             "hideUnknownValue": true,
-            "labelPattern": "BIND(REPLACE(REPLACE(STR(?id), \"^.*\\\\/(.+)\", \"$1\"), \"_\",\" \") AS ?prefLabel)",
+            "labelPattern": "BIND(REPLACE(REPLACE(STR(?id), \"^.*\\\\/(.+)\", \"$1\"), \"_\",\" \") AS ?prefLabel_)",
             "searchField": true,
             "sortButton": true,
             "sortBy": "instanceCount",
