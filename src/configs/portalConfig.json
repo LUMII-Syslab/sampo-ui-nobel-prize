@@ -43,7 +43,7 @@
     },
     "knowledgeGraphMetadataConfig": {
         "showTable": false,
-        "perspective": "perspective1" 
+        "perspective": "nobelPrizes" 
     },
     "layoutConfig": {
         "colorPalette": {
