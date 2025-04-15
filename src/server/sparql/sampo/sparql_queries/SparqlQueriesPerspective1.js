@@ -7,22 +7,34 @@ export const workProperties = `
     {
       ?final_id rdfs:label ?prefLabel__id ;
                 nobel:category ?category__id ;
-                #TODO: Year might not always exist for a Nobel Prize instance. That is why we must use OPTIONAL.
                 nobel:year ?year__id .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
       BIND(STR(?year__id) AS ?year__prefLabel)
-      BIND(REPLACE(REPLACE(STR(?category__id), "^.*\\\\/(.+)", "$1"), "_"," ") AS ?category__prefLabel)
-      BIND(CONCAT("/${perspectiveID}/page/", ?category__prefLabel, "___", ?year__prefLabel) AS ?prefLabel__dataProviderUrl)
+      BIND(REPLACE(REPLACE(STR(?category__id), "^.*\\\\/(.+)", "$1"), "_"," ") AS ?category)
+      BIND(CONCAT("/${perspectiveID}/page/", ?category, "___", ?year__prefLabel) AS ?prefLabel__dataProviderUrl)
       BIND(?final_id as ?uri__id)
       BIND(?final_id as ?uri__dataProviderUrl)
       BIND(?final_id as ?uri__prefLabel)
       FILTER(LANG(?prefLabel__prefLabel) = 'en')
-      
     }
-    OPTIONAL {?final_id nobel:motivation ?motivation__id .
-              BIND(?motivation__id AS ?motivation__prefLabel)
-              FILTER(LANG(?motivation__prefLabel) = 'en')}
+    OPTIONAL {?final_id nobel:motivation ?motivation.
+              FILTER(LANG(?motivation) = 'en')}
 `
+
+export const laureatesByCategoryQuery = `
+  SELECT (REPLACE(STRAFTER(STR(?category), STR(nobel:)),"_", " ") as ?prefLabel) 
+         ?instanceCount
+         ?category
+        {SELECT ?category (count(?id) as ?instanceCount) 
+          {
+            <FILTER>
+            VALUES ?facetClass {<FACET_CLASS>}
+            ?id a ?facetClass ;
+                nobel:category ?category.
+          }
+          GROUP BY ?category
+        }
+`;
 
 export const knowledgeGraphMetadataQuery = `
   SELECT * 

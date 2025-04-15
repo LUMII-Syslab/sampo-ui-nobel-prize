@@ -122,6 +122,7 @@ const generateTextFilter = ({
     textQueryMaxInstances = facetConfig.textQueryMaxInstances
   }
 
+  // TODO: Should probably not use lucene as default, as most data sets will not have support for it.
   if (!has(facetConfig, 'textQueryProvider') || facetConfig.textQueryProvider == "lucene") {
     if (has(facetConfig, 'textQueryProperty') && facetConfig.textQueryGetLiteral &&
         has(facetConfig, 'textQueryHiglightingOptions')) {

@@ -1,4 +1,3 @@
-
 import intl from 'react-intl-universal'
 import { generateLabelForMissingValue } from '../../helpers/helpers'
 
@@ -254,6 +253,7 @@ export const createApexPieChartData = ({
   let otherCount = 0
   const arraySum = results.reduce((sum, current) => sum + current.instanceCount, 0)
   const { sliceVisibilityThreshold = defaultSliceVisibilityThreshold, propertyID, title = null } = resultClassConfig
+  
   results.forEach(item => {
     const sliceFraction = item.instanceCount / arraySum
     if (sliceFraction <= sliceVisibilityThreshold) {
@@ -295,7 +295,8 @@ export const createApexPieChartData = ({
     colors: chartColors,
     series,
     labels,
-    ...(title) && { title }
+    // Seems that ApexCharts requires title to be an object /w defined style.
+    title:{...apexPieChartOptions.title, text: title}
   }
   return apexChartOptionsWithData
 }
@@ -308,6 +309,12 @@ const apexPieChartOptions = {
     height: '100%',
     parentHeightOffset: 10,
     fontFamily: 'Roboto'
+  },
+  title:{
+    style: {
+      fontSize: '14px',
+      fontFamily: 'Roboto, Arial, sans-serif'
+    }
   },
   legend: {
     position: 'right',

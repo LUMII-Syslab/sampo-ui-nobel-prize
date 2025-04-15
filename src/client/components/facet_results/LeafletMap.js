@@ -310,11 +310,22 @@ class LeafletMap extends React.Component {
     const { mapboxAccessToken, mapboxStyle } = mapboxConfig
 
     // Base layer(s)
-    const mapboxBaseLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
-      attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noopener">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong> contributors',
-      tileSize: 512,
-      zoomOffset: -1
-    })
+    // Mapbox vietā izmantošu OpenStreetMaps flīzes
+    let baseTileLayer;
+    if (!mapboxAccessToken) {
+      baseTileLayer = L.tileLayer("http://tile.openstreetmap.org/{z}/{x}/{y}.png", 
+        {
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+          tileSize: 512,
+          zoomOffset: -1
+        });
+    }else{
+      baseTileLayer = L.tileLayer(`https://api.mapbox.com/styles/v1/mapbox/${mapboxStyle}/tiles/{z}/{x}/{y}?access_token=${mapboxAccessToken}`, {
+        attribution: '&copy; <a href="https://www.mapbox.com/map-feedback/" target="_blank" rel="noopener">Mapbox</a> &copy; <a href="http://osm.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong> contributors',
+        tileSize: 512,
+        zoomOffset: -1
+      });
+    }
 
     /*
       Base layers from https://www.maanmittauslaitos.fi/karttakuvapalvelu/tekninen-kuvaus-wmts
@@ -355,7 +366,7 @@ class LeafletMap extends React.Component {
       zoomControl: false,
       zoominfoControl: true,
       layers: [
-        mapboxBaseLayer,
+        baseTileLayer,
         this.resultMarkerLayer
       ],
       fullscreenControl: true
@@ -385,7 +396,7 @@ class LeafletMap extends React.Component {
     // initialize layers from external sources
     if (this.props.showExternalLayers) {
       const basemaps = {
-        [intl.get(`leafletMap.basemaps.mapbox.${mapboxStyle}`)]: mapboxBaseLayer
+        [intl.get(`leafletMap.basemaps.mapbox.${mapboxStyle}`)]: baseTileLayer
         // [intl.get('leafletMap.basemaps.backgroundMapNLS')]: nlsVectortilesBackgroundmap,
         // [intl.get('leafletMap.basemaps.topographicalMapNLS')]: topographicalMapNLS,
         // [intl.get('leafletMap.basemaps.airMapNLS')]: airMapNLS
