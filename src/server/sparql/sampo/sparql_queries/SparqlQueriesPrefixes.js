@@ -26,4 +26,5 @@ export const prefixes = `
   PREFIX dbp: <http://dbpedia.org/property/>
   PREFIX sdo: <https://schema.org/>
   PREFIX dblp: <https://dblp.org/rdf/schema#>
+  PREFIX wdt: <http://www.wikidata.org/prop/direct/>
 `

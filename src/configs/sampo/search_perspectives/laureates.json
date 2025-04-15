@@ -1,7 +1,7 @@
 {
     "id": "laureates",
     "endpoint": {
-        "url": "http://85.254.199.72:8890/sparql",
+        "url": "https://data.nobelprize.org/store/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -59,8 +59,24 @@
             "createChartData": "createApexBarChartData",
             "title": "Laureates by country"
         },
-        "export": {
+        "laureateBirthCountryMap":{
             "tabID": 2,
+            "component": "LeafletMap",
+            "tabPath": "laureate_country_map",
+            "tabIcon": "AddLocation",
+            "sparqlQuery": "laureateBirthCountryMapQuery",
+            "facetClass": "laureates",
+            "filterTarget": "laureates",
+            "resultMapper": "mapPlaces",
+            "instanceConfig": {
+                "propertiesQueryBlock": "workProperties",
+                "relatedInstances": "manuscriptsProducedAt",
+                "filterTarget": "related__id",
+                "createPopUpContent": "createPopUpContentMMM"
+            }
+        },
+        "export": {
+            "tabID": 3,
             "component": "Export",
             "tabPath": "export",
             "tabIcon": "CloudDownload",
@@ -70,6 +86,12 @@
         "knowledgeGraphMetadata": {
             "sparqlQuery": "knowledgeGraphMetadataQuery",
             "resultMapper": "makeObjectList"
+        }
+    },
+    "maps":{
+        "laureateBirthCountryMap":{
+            "center": [22.43, 10.37],
+            "zoom": 2
         }
     },
     "properties": [

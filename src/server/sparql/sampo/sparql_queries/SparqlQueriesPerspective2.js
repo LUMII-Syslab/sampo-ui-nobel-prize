@@ -76,3 +76,32 @@ export const laureatesByBirthCountryQuery = `
     	     }
            GROUP BY ?category ?prefLabel
 }`;
+
+export const laureateBirthCountryMapQuery = `
+SELECT DISTINCT ?id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?lat) ?instanceCount WHERE {
+  {
+    select ?id (count(?laureate) as ?instanceCount) 
+    {
+      ?laureate a nobel:Laureate ;
+  				dbo:birthPlace ?id.
+      # Only consider countries (ignore cities)
+      ?id a dbo:Country .
+    }
+    GROUP BY ?id
+  }
+  {
+    ?id a dbo:Country ;
+        owl:sameAs ?wiki_country_id .
+
+    SERVICE <https://query.wikidata.org/sparql> {
+      # Q6256 ir Wikidata ID, kas apzīmē valsti.
+      ?wiki_country_id wdt:P31 <http://www.wikidata.org/entity/Q6256> ;
+                       wdt:P625 ?coordinatesRaw .
+
+      # Wikidata tiek pilsētas koordinātas glabātas iekš wktWKT literal, bet SAMPO-UI nepieciešami platuma un garuma grādi, tādēļ tos te izgūstam no teksta literāļa.
+      BIND(REPLACE(STR(?coordinatesRaw), "^Point\\\\(|\\\\)$", "") AS ?coordPair)
+      BIND(STRBEFORE(?coordPair, " ") AS ?lonStr)
+      BIND(STRAFTER(?coordPair, " ") AS ?latStr)
+    }
+  }
+}`;
