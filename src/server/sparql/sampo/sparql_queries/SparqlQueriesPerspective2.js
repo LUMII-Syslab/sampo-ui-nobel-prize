@@ -56,3 +56,23 @@ export const workProperties = `
       }
     }
 `
+
+export const laureatesByBirthCountryQuery = `
+    SELECT ?prefLabel 
+           ?instanceCount
+		       ?category
+           {
+            SELECT ?category ?prefLabel (count(?id) as ?instanceCount) 
+           {
+            <FILTER>
+            VALUES ?facetClass {<FACET_CLASS>}
+            ?id <FACET_CLASS_PREDICATE> ?facetClass ;
+                dbo:birthPlace ?category .
+    		    # Only interested in countries and not cities          
+    		    ?category a dbo:Country ;
+                      rdfs:label ?prefLabel .
+            # TODO: Possibly use <LANGTAG> instead of hardcoding it.
+      		  FILTER(LANG(?prefLabel) = "en")
+    	     }
+           GROUP BY ?category ?prefLabel
+}`;
