@@ -80,12 +80,13 @@ export const laureatesByBirthCountryQuery = `
 export const laureateBirthCountryMapQuery = `
 SELECT DISTINCT ?id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?lat) ?instanceCount WHERE {
   {
-    select ?id (count(?laureate) as ?instanceCount) 
+    select ?id (count(DISTINCT ?laureate) as ?instanceCount) 
     {
+      <FILTER>
       ?laureate a nobel:Laureate ;
-  				dbo:birthPlace ?id.
+  				dbo:birthPlace ?id .
       # Only consider countries (ignore cities)
-      ?id a dbo:Country .
+      FILTER(EXISTS {?id a dbo:Country .})
     }
     GROUP BY ?id
   }
@@ -104,4 +105,25 @@ SELECT DISTINCT ?id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?la
       BIND(STRAFTER(?coordPair, " ") AS ?latStr)
     }
   }
+}`;
+
+export const laureateBirthCountryInstancePropertyQuery = `
+       {
+          ?id a dbo:Country ;
+              rdfs:label ?prefLabel__id ;
+              owl:sameAs ?prefLabel__dataProviderUrl .
+          BIND(?prefLabel__id AS ?prefLabel__prefLabel) 
+          # TODO: Possibly use <LANGTAG> instead of hardcoding it.
+          FILTER(LANG(?prefLabel__id) = "en")    
+       }`;
+
+export const laureateBirthCountryMapRelatedQuery = `
+OPTIONAL {
+  <FILTER>
+  ?related__id dbo:birthPlace ?id ;
+               a nobel:Laureate ;
+               rdfs:label ?related__prefLabel .
+  # Laureates do not have a language tag.
+  #FILTER(LANG(?related__prefLabel) = "en")
+  BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?related__id), "^.*\\\\/(.+)", "$1")) AS ?related__dataProviderUrl)
 }`;

@@ -1,5 +1,7 @@
+
+// Added distinct because the official SPARQL endpoint has duplicate rdf:type predicates for countries.
 export const instanceQuery = `
-  SELECT * {
+  SELECT DISTINCT * {
     BIND(<ID> as ?id)
     <PROPERTIES>
     <RELATED_INSTANCES>

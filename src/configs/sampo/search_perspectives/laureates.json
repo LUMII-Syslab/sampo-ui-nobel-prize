@@ -66,13 +66,13 @@
             "tabIcon": "AddLocation",
             "sparqlQuery": "laureateBirthCountryMapQuery",
             "facetClass": "laureates",
-            "filterTarget": "laureates",
+            "filterTarget": "laureate",
             "resultMapper": "mapPlaces",
             "instanceConfig": {
-                "propertiesQueryBlock": "workProperties",
-                "relatedInstances": "manuscriptsProducedAt",
+                "propertiesQueryBlock": "laureateBirthCountryInstancePropertyQuery",
+                "relatedInstances": "laureateBirthCountryMapRelatedQuery",
                 "filterTarget": "related__id",
-                "createPopUpContent": "createPopUpContentMMM"
+                "createPopUpContent": "createPopUpContentLaureateBirthCountries"
             }
         },
         "export": {

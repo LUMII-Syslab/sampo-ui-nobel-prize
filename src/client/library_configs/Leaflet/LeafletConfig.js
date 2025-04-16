@@ -7,6 +7,7 @@ export const createPopUpContentDefault = ({ data, resultClass }) => {
   if (Array.isArray(data.prefLabel)) {
     data.prefLabel = data.prefLabel[0]
   }
+
   const container = document.createElement('div')
   const h3 = document.createElement('h3')
   if (has(data.prefLabel, 'dataProviderUrl')) {
@@ -27,6 +28,38 @@ export const createPopUpContentDefault = ({ data, resultClass }) => {
   container.appendChild(h3)
   return container
 }
+
+export const createPopUpContentLaureateBirthCountries = ({ data, resultClass }) => {
+  if (Array.isArray(data.prefLabel)) {
+    data.prefLabel = data.prefLabel[0]
+  }
+
+  const container = document.createElement('div')
+  const h3 = document.createElement('h3')
+  if (has(data.prefLabel, 'dataProviderUrl')) {
+    const link = document.createElement('a')
+    link.textContent = data.prefLabel.prefLabel
+    link.style.cssText = 'cursor: pointer; text-decoration: underline'
+    // Country link will be to wikidata
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+    link.setAttribute('href', data.prefLabel.dataProviderUrl);
+
+    h3.appendChild(link)
+  } else {
+    h3.textContent = data.prefLabel.prefLabel
+  }
+
+  container.appendChild(h3)
+
+  if (has(data, 'related')) {
+    const p = document.createElement('p')
+    p.textContent = 'Laureates:'
+    container.appendChild(p)
+    container.appendChild(createInstanceListing(data.related))
+  }
+  return container
+};
 
 export const createPopUpContentAs = ({ data, resultClass }) => {
   if (Array.isArray(data.prefLabel)) {
