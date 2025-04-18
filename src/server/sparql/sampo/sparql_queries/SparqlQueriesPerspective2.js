@@ -18,6 +18,13 @@ export const workProperties = `
       OPTIONAL { ?id rdfs:label ?fullName__id .
                  BIND(STR(?fullName__id) AS ?fullName__prefLabel)
       }
+      SERVICE <https://query.wikidata.org/sparql> {
+        # Q5 ir Wikidata ID, kas apzīmē personu (Human).
+        ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ;
+               # Ar apakšējo property cheku strādā diezgan ātri.
+               wdt:P8024 [] .
+        # OPTIONAL {?wd_id wdt:P18 ?image}
+      }
       # Retrieve properties for the laureate that is a subclass of foaf:Person.
       OPTIONAL { SELECT * WHERE {
                  ?id dbp:dateOfBirth ?birthDate__id .

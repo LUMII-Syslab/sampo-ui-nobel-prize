@@ -207,6 +207,10 @@
           "description": "The name of the laureate.",
           "textFacetInputPlaceholder": "Search..."
         },
+        "laureateImage":{
+          "label":"Portrait",
+          "description":"The image of the laureate."
+        },
         "affiliation": {
           "label": "Affiliation",
           "description": "The university or institution with which the laureate is affiliated."

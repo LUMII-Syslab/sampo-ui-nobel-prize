@@ -114,6 +114,15 @@
             "minWidth": 250
         },
         {
+            "id":"laureateImage",
+            "valueType":"image",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "minWidth": 280
+        },
+        {
             "id":"affiliation",
             "valueType":"object",
             "makeLink":true,
