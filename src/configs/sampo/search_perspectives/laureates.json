@@ -142,30 +142,30 @@
         },
         {
             "id": "birthDate",
-            "valueType": "object",
+            "valueType": "string",
             "makeLink": false,
             "externalLink": false,
-            "sortValues": true,
+            "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 150
         },
         {
             "id": "deathDate",
-            "valueType": "object",
+            "valueType": "string",
             "makeLink": false,
             "externalLink": false,
-            "sortValues": true,
+            "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 150
         },
         {
             "id": "foundingDate",
-            "valueType": "object",
+            "valueType": "string",
             "makeLink": false,
             "externalLink": false,
-            "sortValues": true,
+            "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 150
         },
         {
             "id": "foundingLocation",
@@ -178,16 +178,16 @@
         },
         {
             "id": "gender",
-            "valueType": "object",
+            "valueType": "string",
             "makeLink": false,
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 100
         },
         {
             "id": "fullName",
-            "valueType": "object",
+            "valueType": "string",
             "makeLink": false,
             "externalLink": false,
             "sortValues": true,

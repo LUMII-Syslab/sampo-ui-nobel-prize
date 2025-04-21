@@ -15,26 +15,13 @@ export const workProperties = `
       BIND(?id as ?uri__prefLabel)
 
       # Retrieve full label of the laureate, if it exists (Doesn't seems that language tags are used).
-      OPTIONAL { ?id rdfs:label ?fullName__id .
-                 BIND(STR(?fullName__id) AS ?fullName__prefLabel)
-      }
-      SERVICE <https://query.wikidata.org/sparql> {
-        # Q5 ir Wikidata ID, kas apzīmē personu (Human).
-        ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ;
-               # Ar apakšējo property cheku strādā diezgan ātri.
-               wdt:P8024 [] .
-        # OPTIONAL {?wd_id wdt:P18 ?image}
-      }
+      OPTIONAL { ?id rdfs:label ?fullName . }
+      
       # Retrieve properties for the laureate that is a subclass of foaf:Person.
       OPTIONAL { SELECT * WHERE {
-                 ?id dbp:dateOfBirth ?birthDate__id .
-                 BIND(STR(?birthDate__id) AS ?birthDate__prefLabel) 
-                 OPTIONAL {?id dbp:dateOfDeath ?deathDate__id .
-                           BIND(STR(?deathDate__id) AS ?deathDate__prefLabel)
-                          }
-                 OPTIONAL {?id foaf:gender ?gender__id .
-                           BIND(STR(?gender__id) AS ?gender__prefLabel)
-                          }          
+                 ?id dbp:dateOfBirth ?birthDate .
+                 OPTIONAL {?id dbp:dateOfDeath ?deathDate .}
+                 OPTIONAL {?id foaf:gender ?gender . }          
                  OPTIONAL {?id dbo:affiliation ?affiliation__id .
                            ?affiliation__id rdfs:label ?affiliationLabel .
                            BIND(STR(?affiliationLabel) AS ?affiliation__prefLabel)
@@ -52,8 +39,7 @@ export const workProperties = `
       }
       # Retrieve properties for the laureate that is a subclass of foaf:Organization.
       OPTIONAL { SELECT * WHERE {
-                 ?id sdo:foundingDate ?foundingDate__id .
-                 BIND(STR(?foundingDate__id) AS ?foundingDate__prefLabel) 
+                 ?id sdo:foundingDate ?foundingDate .
                  OPTIONAL {?id sdo:foundingLocation ?foundingLocation__id .
                             ?foundingLocation__id rdfs:label ?foundingLocationLabel ;
                                                   owl:sameAs ?foundingLocation__dataProviderUrl .
@@ -61,6 +47,15 @@ export const workProperties = `
                           }
                  }
       }
+
+      ## Nobelprize public SPARQL endpoint fails with this, so an alternative must be used.
+      # SERVICE <https://query.wikidata.org/sparql> {
+        # Q5 ir Wikidata ID, kas apzīmē personu (Human).
+      #  ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ;
+               # Ar apakšējo property cheku strādā diezgan ātri.
+      #         wdt:P8024 [] .
+        # OPTIONAL {?wd_id wdt:P18 ?image}
+      #}
     }
 `
 

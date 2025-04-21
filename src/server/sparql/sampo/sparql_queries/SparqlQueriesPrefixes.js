@@ -7,7 +7,7 @@ export const prefixes = `
   PREFIX owl: <http://www.w3.org/2002/07/owl#>
   PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
   PREFIX text: <http://jena.apache.org/text#>
-  PREFIX dct: <http://purl.org/dc/terms/>
+  PREFIX dcterms: <http://purl.org/dc/terms/>
   PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
   PREFIX sch: <http://schema.org/>
   PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
@@ -27,4 +27,5 @@ export const prefixes = `
   PREFIX sdo: <https://schema.org/>
   PREFIX dblp: <https://dblp.org/rdf/schema#>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+  PREFIX dcat: <http://www.w3.org/ns/dcat#>
 `

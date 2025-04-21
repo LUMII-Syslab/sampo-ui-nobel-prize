@@ -89,25 +89,25 @@
             "externalLink": false,
             "sortValues": true,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 150
         },
         {
             "id": "category",
             "valueType": "string",
             "makeLink": false,
             "externalLink": false,
-            "sortValues": true,
+            "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 100
         },
         {
             "id":"year",
-            "valueType": "object",
+            "valueType": "string",
             "makeLink": false,
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 100
+            "minWidth": 80
         },
         {
             "id":"motivation",
@@ -116,6 +116,25 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
+            "minWidth": 150
+        },
+        {
+            "id":"laureate_count",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "valueType": "string",
+            "minWidth": 20	
+        },
+        {
+            "id":"laureate",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": false,
+            "sortValues": true,
+            "sortBy":"sortOrder",
+            "numberedList": true,
             "minWidth": 250
         }
     ],
@@ -154,7 +173,7 @@
             "facetType": "text",
             "filterType": "textFilter",
             "textQueryProvider": "regex",
-            "textQueryProperty": "nobel:motivation"
+            "textQueryProperty": "nobel:motivation dcterms:hasPart/nobel:motivation"
         }
     }
 }

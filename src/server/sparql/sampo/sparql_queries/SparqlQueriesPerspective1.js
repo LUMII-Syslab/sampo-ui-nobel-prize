@@ -7,18 +7,42 @@ export const workProperties = `
     {
       ?final_id rdfs:label ?prefLabel__id ;
                 nobel:category ?category__id ;
-                nobel:year ?year__id .
+                nobel:year ?year .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-      BIND(STR(?year__id) AS ?year__prefLabel)
-      BIND(REPLACE(REPLACE(STR(?category__id), "^.*\\\\/(.+)", "$1"), "_"," ") AS ?category)
-      BIND(CONCAT("/${perspectiveID}/page/", ?category, "___", ?year__prefLabel) AS ?prefLabel__dataProviderUrl)
+      # For shown field we remove the underscores from category name, but we must preserve them for encoding the entity id.
+      BIND(REPLACE(STR(?category__id), "^.*\\\\/(.+)", "$1") AS ?category_original)
+      BIND(REPLACE(?category_original, "_", " ") AS ?category)
+      BIND(CONCAT("/${perspectiveID}/page/", ?category_original, "___", STR(?year)) AS ?prefLabel__dataProviderUrl)
       BIND(?final_id as ?uri__id)
       BIND(?final_id as ?uri__dataProviderUrl)
       BIND(?final_id as ?uri__prefLabel)
       FILTER(LANG(?prefLabel__prefLabel) = 'en')
     }
-    OPTIONAL {?final_id nobel:motivation ?motivation.
-              FILTER(LANG(?motivation) = 'en')}
+    UNION
+    {
+      # Fetch nobel prize laureates
+      ?final_id dcterms:hasPart ?laureateAward .
+      ?laureateAward nobel:laureate ?laureate__id ;
+                     nobel:sortOrder ?laureate__sortOrder ;
+                     nobel:share     ?laureate__share .
+      # TODO: Potentially limit it to user locale.
+      ?laureate__id rdfs:label ?laureateLabel .
+
+      # TODO: Is it possible that some laureateAward will not have motivation predicate set?
+      OPTIONAL {
+        ?laureateAward nobel:motivation ?laureate__motivation . 
+        FILTER(LANG(?laureate__motivation) = 'en')
+      }
+
+      BIND(CONCAT(?laureateLabel, " (1/", STR(?laureate__share), " share)") AS ?laureateLabelWithShare)
+      BIND(CONCAT(IF(?laureate__share = 1, ?laureateLabel, ?laureateLabelWithShare), " - ", ?laureate__motivation) AS ?laureate__prefLabel)
+      BIND(CONCAT("/laureates/page/", REPLACE(STR(?laureate__id), "^.*\\\\/(.+)", "$1")) AS ?laureate__dataProviderUrl)
+    }
+    UNION 
+    {
+      ?final_id nobel:motivation ?motivation.
+      FILTER(LANG(?motivation) = 'en')
+    }
 `
 
 export const laureatesByCategoryQuery = `

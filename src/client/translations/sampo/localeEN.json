@@ -279,6 +279,10 @@
         "motivation":{
           "label":"Motivation",
           "description":"The motivation for the nobel prize."
+        },
+        "laureate":{
+          "label":"Laureates",
+          "description":"The laureates of the nobel prize."
         }
       }
     },
