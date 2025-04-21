@@ -278,7 +278,7 @@
         },
         "motivation":{
           "label":"Motivation",
-          "description":"The motivation for the nobel prize."
+          "description":"The motivation for the nobel prize or the motivation for the laureate receiving nobel prize."
         },
         "laureate":{
           "label":"Laureates",

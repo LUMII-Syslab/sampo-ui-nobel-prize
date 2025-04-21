@@ -67,6 +67,7 @@
             "feedbackLink": "https://link.webropolsurveys.com/...",
             "externalInstructions": false,
             "externalAboutPage": false,
+            "showSearchField":false,
             "reducedHeight": 48,
             "defaultHeight": 64,
             "mobileMenuBreakpoint": 1360,

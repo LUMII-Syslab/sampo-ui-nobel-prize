@@ -25,9 +25,9 @@
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "workProperties",
-                "pagesize": 10,
-                "sortBy": null,
-                "sortDirection": null
+                "pagesize": 50,
+                "sortBy": "year",
+                "sortDirection": "desc"
             },
             "instanceConfig": {
                 "propertiesQueryBlock": "workProperties",
@@ -132,6 +132,7 @@
             "valueType": "object",
             "makeLink": true,
             "externalLink": false,
+            "disableSort": true,
             "sortValues": true,
             "sortBy":"sortOrder",
             "numberedList": true,
