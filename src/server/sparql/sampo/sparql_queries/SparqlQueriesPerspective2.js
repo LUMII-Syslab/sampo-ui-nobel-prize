@@ -79,6 +79,23 @@ export const laureatesByBirthCountryQuery = `
            GROUP BY ?category ?prefLabel
 }`;
 
+export const laureatesByCategoryQuery = `
+  SELECT (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") as ?prefLabel) 
+         ?instanceCount
+         ?category
+        # Have to use Distinct since nobelPrize endpoint has duplicate predicates that causes wrong aggregations
+        {SELECT ?category (count(DISTINCT ?id) as ?instanceCount) 
+          {
+            <FILTER>
+            VALUES ?facetClass {<FACET_CLASS>}
+            ?id a ?facetClass ;
+                nobel:laureateAward ?laureateAward .
+            ?laureateAward nobel:category ?category .
+          }
+          GROUP BY ?category
+        }
+`;
+
 export const laureateBirthCountryMapQuery = `
 SELECT DISTINCT ?id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?lat) ?instanceCount WHERE {
   {

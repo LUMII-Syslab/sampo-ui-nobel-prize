@@ -59,8 +59,19 @@
             "createChartData": "createApexBarChartData",
             "title": "Laureates by country"
         },
-        "laureateBirthCountryMap":{
+        "laureatesPerCategory":{
             "tabID": 2,
+            "component": "ApexCharts",
+            "tabPath": "laureates_per_category",
+            "tabIcon": "ShowChart",
+            "sparqlQuery": "laureatesByCategoryQuery",
+            "facetClass": "nobelPrizes",
+            "resultMapper":"mapPieChart",
+            "createChartData": "createApexPieChartData",
+            "title": "Laureates per category"
+        },
+        "laureateBirthCountryMap":{
+            "tabID": 3,
             "component": "LeafletMap",
             "tabPath": "laureate_country_map",
             "tabIcon": "AddLocation",
@@ -76,7 +87,7 @@
             }
         },
         "export": {
-            "tabID": 3,
+            "tabID": 4,
             "component": "Export",
             "tabPath": "export",
             "tabIcon": "CloudDownload",

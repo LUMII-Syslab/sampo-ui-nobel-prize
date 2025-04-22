@@ -45,21 +45,6 @@ export const workProperties = `
     }
 `
 
-export const laureatesByCategoryQuery = `
-  SELECT (REPLACE(STRAFTER(STR(?category), STR(nobel:)),"_", " ") as ?prefLabel) 
-         ?instanceCount
-         ?category
-        {SELECT ?category (count(?id) as ?instanceCount) 
-          {
-            <FILTER>
-            VALUES ?facetClass {<FACET_CLASS>}
-            ?id a ?facetClass ;
-                nobel:category ?category.
-          }
-          GROUP BY ?category
-        }
-`;
-
 export const knowledgeGraphMetadataQuery = `
   SELECT * 
   WHERE {
