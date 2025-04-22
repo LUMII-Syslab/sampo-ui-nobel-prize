@@ -65,7 +65,7 @@
             "tabPath": "laureates_per_category",
             "tabIcon": "ShowChart",
             "sparqlQuery": "laureatesByCategoryQuery",
-            "facetClass": "nobelPrizes",
+            "facetClass": "laureates",
             "resultMapper":"mapPieChart",
             "createChartData": "createApexPieChartData",
             "title": "Laureates per category"
