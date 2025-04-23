@@ -54,4 +54,29 @@ export const workProperties = `
           # LIMIT 1
         }
     }         
+`;
+
+export const laureatesByAffiliatedUniversityQuery = `
+# Distinct since official nobel prize SPARQL endpoint has duplicate properties for entities.
+SELECT distinct (?id as ?category) ?prefLabel ?instanceCount 
+{
+  {
+    SELECT ?id (count(distinct ?laureateAward) as ?instanceCount)
+    {
+      VALUES ?facetClass { <FACET_CLASS> }
+      ?id a ?facetClass ;
+          ^nobel:university ?laureateAward .
+      ?laureateAward dcterms:isPartOf ?nobelPrize .
+    }
+    GROUP BY ?id
+    ORDER BY desc(?instanceCount)
+    LIMIT 15
+  }
+  FILTER(BOUND(?id))
+  {
+    ?id rdfs:label ?prefLabel
+    FILTER(LANG(?prefLabel) = 'en')
+  }
+}
+ORDER BY desc(?instanceCount)
 `

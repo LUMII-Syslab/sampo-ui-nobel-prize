@@ -46,6 +46,20 @@
                 }
             }
         },
+        "laureatesCountPerUniversity":{
+            "tabID": 1,
+            "component": "ApexCharts",
+            "tabPath": "laureates_per_university",
+            "tabIcon": "ShowChart",
+            "sparqlQuery": "laureatesByAffiliatedUniversityQuery",
+            "facetClass": "universities",
+            "resultMapper":"mapPieChart",
+            "createChartData": "createApexBarChartData",
+            "title": "Number of laureate awards per affiliation (top 15)",
+            "seriesTitle": "Affiliated laureate awards",
+            "xaxisTitle": "University",
+            "yaxisTitle": "Affiliated laureate awards"
+        },
         "export": {
             "tabID": 2,
             "component": "Export",
@@ -117,7 +131,12 @@
     ],
     "facets": {
         "prefLabel": {
-            "sortByPredicate": "rdfs:label"
+            "sortByPredicate": "rdfs:label",
+            "containerClass": "one",
+            "facetType": "text",
+            "filterType": "textFilter",
+            "textQueryProvider": "regex",
+            "textQueryProperty": "rdfs:label"
         },
         "country": {
             "sortByPredicate": "dbo:country/rdfs:label",
