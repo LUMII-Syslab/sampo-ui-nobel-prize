@@ -79,4 +79,4 @@ SELECT distinct (?id as ?category) ?prefLabel ?instanceCount
   }
 }
 ORDER BY desc(?instanceCount)
-`
+`;

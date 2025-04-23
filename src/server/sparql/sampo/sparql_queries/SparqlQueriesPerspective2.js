@@ -142,6 +142,29 @@ SELECT DISTINCT ?id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?la
   }
 }`;
 
+export const laureatesWithMultiplePrizesQuery = `
+# Distinct since official nobel prize SPARQL endpoint has duplicate properties for entities.
+SELECT distinct (?id as ?category) ?prefLabel ?instanceCount 
+{
+  {
+    SELECT ?id (count(distinct ?laureateAward) as ?instanceCount)
+    {
+      <FILTER>
+      VALUES ?facetClass { <FACET_CLASS> }
+      ?id a ?facetClass ;
+          nobel:laureateAward ?laureateAward .
+    }
+    GROUP BY ?id
+    HAVING(?instanceCount > 1)
+  }
+  FILTER(BOUND(?id))
+  {
+    ?id rdfs:label ?prefLabel .
+  }
+}
+ORDER BY desc(?instanceCount)
+`;
+
 export const laureateBirthCountryInstancePropertyQuery = `
        {
           ?id a dbo:Country ;

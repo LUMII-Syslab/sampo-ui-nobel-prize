@@ -124,8 +124,20 @@
                 "createPopUpContent": "createPopUpContentLaureateBirthCountries"
             }
         },
-        "export": {
+        "laureatesWithMultiplePrizesBarChart":{
             "tabID": 4,
+            "component": "ApexCharts",
+            "tabPath": "laureates_with_multiple_prizes_chart",
+            "tabIcon": "ShowChart",
+            "sparqlQuery": "laureatesWithMultiplePrizesQuery",
+            "facetClass": "laureates",
+            "resultMapper":"mapPieChart",
+            "seriesTitle": "Prizes received",
+            "createChartData": "createApexBarChartData",
+            "title": "Prize count per laureate"
+        },
+        "export": {
+            "tabID": 5,
             "component": "Export",
             "tabPath": "export",
             "tabIcon": "CloudDownload",
