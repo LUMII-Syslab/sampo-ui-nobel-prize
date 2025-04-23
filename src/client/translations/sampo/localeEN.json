@@ -30,6 +30,13 @@
     "searchBarPlaceHolderShort": "Search",
     "instructions": "instructions"
   },
+  "apexCharts":{
+    "resultClasses":
+    {
+      "laureatesPerCategoryPieChart":"Pie chart",
+      "laureatesPerCategoryTimeline": "Timeline"
+    }
+  },
   "facetBar": {
     "results": "Results",
     "filters": "Filters",

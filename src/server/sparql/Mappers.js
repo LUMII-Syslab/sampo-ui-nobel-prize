@@ -225,6 +225,57 @@ export const mapMultipleLineChart = ({ sparqlBindings, config }) => {
   return res
 }
 
+export const mapDynamicCategoryLineChart = ({ sparqlBindings, config }) => {
+  let res = {};
+
+  // Fill each category array with its graph data.
+  sparqlBindings.forEach(b => 
+  {
+    if (!res[b.category.value])
+      res[b.category.value] = [];
+
+    res[b.category.value].push([parseInt(b.xValue.value), parseFloat(b.yValue.value)]);
+  });
+
+  // Fill any missing data points for an argument x in any category with zeroes, 
+  // if config has atribute set.
+  if (sparqlBindings.length > 0 && config && config.fillEmptyValues) {
+    let argRange = sparqlBindings.map(b => parseInt(b.xValue.value));
+    let max = Math.max(...argRange), 
+        min = Math.min(...argRange);
+        
+    for (let i = min; i <= max; i++) {
+      for (let category in res) 
+      {
+        let series = res[category];
+        let dataPntAtX = series.find(p => p[0] === i);
+
+        // Set for missing data point the y-value at 0.
+        if (!dataPntAtX) 
+          series.push([i, 0]);
+      }
+    }
+  }
+
+  return res;
+}
+
+// Within each category series the cumulative sum is computed over the data points in-place.
+export const convertToCumulativeSumSeries = ({ data, config }) => {
+  for (let category in data) {
+    let series = data[category];
+    // We must order the series to be in ascending order by x value to ensure correct calculation.
+    series.sort((a, b) => a[0] - b[0]);
+
+    let sum = 0;
+    series.forEach(([_, y], dataPntIdx) => {
+      sum += y;
+      series[dataPntIdx][1] = sum;
+    });
+  }
+  return data;
+}
+
 export const mapPieChart = sparqlBindings => {
   const results = sparqlBindings.map(b => {
     return {

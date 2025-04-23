@@ -96,6 +96,22 @@ export const laureatesByCategoryQuery = `
         }
 `;
 
+export const laureatesByCategoryTimelineQuery = `
+  SELECT (REPLACE(STRAFTER(STR(?nobelCategory),"http://data.nobelprize.org/resource/category/"), "_", " ") as ?category)
+         (?nobelYear as ?xValue)
+		     (count(distinct ?id) as ?yValue)
+  {
+  	<FILTER>
+    VALUES ?facetClass { <FACET_CLASS> }
+    ?id a ?facetClass ;
+     	 nobel:laureateAward ?laureateAward .
+     ?laureateAward nobel:year ?nobelYear  ;
+                    nobel:category ?nobelCategory .
+  }
+  GROUP BY ?nobelCategory ?nobelYear
+  ORDER BY desc(?nobelCategory) asc(?nobelYear)
+`;
+
 export const laureateBirthCountryMapQuery = `
 SELECT DISTINCT ?id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?lat) ?instanceCount WHERE {
   {

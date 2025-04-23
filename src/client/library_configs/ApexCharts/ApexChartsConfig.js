@@ -86,6 +86,7 @@ export const createMultipleLineChartData = ({
     yaxisTitle,
     stroke,
     fill,
+    apexChartType,
     tooltip
   } = resultClassConfig
   const series = []
@@ -97,7 +98,7 @@ export const createMultipleLineChartData = ({
   }
   const apexChartOptionsWithData = {
     chart: {
-      type: 'area',
+      type: ( apexChartType ) || 'area',
       width: '100%',
       height: '100%',
       fontFamily: 'Roboto'
