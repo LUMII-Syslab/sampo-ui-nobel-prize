@@ -1,7 +1,7 @@
 {
     "id": "universities",
     "endpoint": {
-        "url": "http://85.254.199.72:8890/sparql",
+        "url": "https://data.nobelprize.org/store/sparql",
         "useAuth": false,
         "prefixesFile": "SparqlQueriesPrefixes.js"
     },
@@ -25,9 +25,7 @@
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "workProperties",
-                "pagesize": 10,
-                "sortBy": null,
-                "sortDirection": null
+                "pagesize": 10
             },
             "instanceConfig": {
                 "propertiesQueryBlock": "workProperties",
@@ -78,7 +76,7 @@
             "externalLink": false,
             "sortValues": true,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 200
         },
         {
             "id": "country",
@@ -87,7 +85,7 @@
             "externalLink": true,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 100
         },
         {
             "id": "city",
@@ -96,12 +94,38 @@
             "externalLink": true,
             "sortValues": false,
             "numberedList": false,
+            "minWidth": 100
+        },
+        {
+            "id": "affiliatedLaureate",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
             "minWidth": 250
+        },
+        {
+            "id": "mostAwardsInCategory",
+            "valueType": "string",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "minWidth": 100
         }
     ],
     "facets": {
         "prefLabel": {
             "sortByPredicate": "rdfs:label"
+        },
+        "country": {
+            "sortByPredicate": "dbo:country/rdfs:label",
+            "sortByValueFilter": "FILTER(LANG(?orderBy)='en')"
+        },
+        "city": {
+            "sortByPredicate": "dbo:city/rdfs:label",
+            "sortByValueFilter": "FILTER(LANG(?orderBy)='en')"
         }
     }
 }

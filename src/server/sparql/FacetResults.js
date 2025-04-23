@@ -68,7 +68,8 @@ export const getPaginatedResults = ({
     if (has(facets[sortBy], 'sortByPattern')) {
       sortByPattern = facets[sortBy].sortByPattern
     } else {
-      sortByPattern = `OPTIONAL { ?id ${sortByPredicate} ?orderBy }`
+      let sortByValueFilter = facets[sortBy].sortByValueFilter
+      sortByPattern = `OPTIONAL { ?id ${sortByPredicate} ?orderBy . ${sortByValueFilter ?? ''} }`
     }
     q = q.replace('<ORDER_BY_TRIPLE>', sortByPattern)
     q = q = q.replace('<ORDER_BY>', `ORDER BY (!BOUND(?orderBy)) ${sortDirection}(?orderBy)`)

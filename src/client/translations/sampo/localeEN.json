@@ -318,6 +318,14 @@
         "city": {
           "label": "City",
           "description": "The city of the university"
+        },
+        "affiliatedLaureate":{
+          "label": "Affiliated laureates",
+          "description": "The laureates that have won a nobel prize while affiliated with the university."
+        },
+        "mostAwardsInCategory":{
+          "label": "Most awards in category",
+          "description": "The category in which the university has the most nobel prize awards through affiliated laureates."
         }
       }
     },
