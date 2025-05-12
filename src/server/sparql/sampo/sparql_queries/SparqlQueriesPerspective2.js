@@ -13,49 +13,49 @@ export const workProperties = `
       BIND(?id as ?uri__id)
       BIND(?id as ?uri__dataProviderUrl)
       BIND(?id as ?uri__prefLabel)
-
+    }
+    UNION
+    {
       # Retrieve full label of the laureate, if it exists (Doesn't seems that language tags are used).
-      OPTIONAL { ?id rdfs:label ?fullName . }
-      
-      # Retrieve properties for the laureate that is a subclass of foaf:Person.
-      OPTIONAL { SELECT * WHERE {
-                 ?id dbp:dateOfBirth ?birthDate .
-                 OPTIONAL {?id dbp:dateOfDeath ?deathDate .}
-                 OPTIONAL {?id foaf:gender ?gender . }          
-                 OPTIONAL {?id dbo:affiliation ?affiliation__id .
-                           ?affiliation__id rdfs:label ?affiliationLabel .
-                           BIND(STR(?affiliationLabel) AS ?affiliation__prefLabel)
-                           BIND(STR(?affiliation__id) AS ?affiliation__dataProviderUrl)
-                          } 
-                 # Birthplace property might have both a City and a Country as a value (TODO: Need to combine them)
-                 OPTIONAL {?id dbo:birthPlace ?birthPlace__id .
-                           ?birthPlace__id rdfs:label ?birthPlaceLabel__id ;
-                           # Retrieve the url to the dbo:Country or dbo:City in publicly available data provider.
-                                           owl:sameAs ?birthPlaceLabel__dataProviderUrl .
-                           BIND(STR(?birthPlaceLabel__id) AS ?birthPlaceLabel__prefLabel)
-                           FILTER(LANG(?birthPlaceLabel__id) = 'en')
-                          }             
-                 }        
-      }
+      ?id rdfs:label ?fullName .
+    }
+    # Retrieve properties for the laureate that is a subclass of foaf:Person.
+    UNION
+    {  
+      ?id dbp:dateOfBirth ?birthDate .
+    }
+    UNION
+    {
+      ?id foaf:gender ?gender .
+    }
+    UNION
+    {
+      ?id dbo:affiliation ?affiliation__id .
+      ?affiliation__id rdfs:label ?affiliationLabel .
+      BIND(STR(?affiliationLabel) AS ?affiliation__prefLabel)
+      BIND(STR(?affiliation__id) AS ?affiliation__dataProviderUrl)
+    }
+    UNION
+    {
+      # Birthplace property might have both a City and a Country as a value (TODO: Need to combine them)  
+      ?id dbo:birthPlace ?birthPlace__id .
+      ?birthPlace__id rdfs:label ?birthPlaceLabel__id ;
+      # Retrieve the url to the dbo:Country or dbo:City in publicly available data provider.
+                      owl:sameAs ?birthPlaceLabel__dataProviderUrl .
+      BIND(STR(?birthPlaceLabel__id) AS ?birthPlaceLabel__prefLabel)
+      FILTER(LANG(?birthPlaceLabel__id) = 'en')
+    }
+    UNION
+    {
       # Retrieve properties for the laureate that is a subclass of foaf:Organization.
-      OPTIONAL { SELECT * WHERE {
-                 ?id sdo:foundingDate ?foundingDate .
-                 OPTIONAL {?id sdo:foundingLocation ?foundingLocation__id .
-                            ?foundingLocation__id rdfs:label ?foundingLocationLabel ;
-                                                  owl:sameAs ?foundingLocation__dataProviderUrl .
-                           BIND(STR(?foundingLocationLabel) AS ?foundingLocation__prefLabel)
-                          }
-                 }
-      }
-
-      ## Nobelprize public SPARQL endpoint fails with this, so an alternative must be used.
-      # SERVICE <https://query.wikidata.org/sparql> {
-        # Q5 ir Wikidata ID, kas apzīmē personu (Human).
-      #  ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ;
-               # Ar apakšējo property cheku strādā diezgan ātri.
-      #         wdt:P8024 [] .
-        # OPTIONAL {?wd_id wdt:P18 ?image}
-      #}
+      ?id sdo:foundingDate ?foundingDate .
+    }
+    UNION
+    {
+      ?id sdo:foundingLocation ?foundingLocation__id .
+      ?foundingLocation__id rdfs:label ?foundingLocationLabel ;
+                            owl:sameAs ?foundingLocation__dataProviderUrl .
+      BIND(STR(?foundingLocationLabel) AS ?foundingLocation__prefLabel)
     }
 `
 
@@ -159,7 +159,8 @@ SELECT distinct (?id as ?category) ?prefLabel ?instanceCount
   }
   FILTER(BOUND(?id))
   {
-    ?id rdfs:label ?prefLabel .
+    ?id foaf:name ?prefLabel .
+
   }
 }
 ORDER BY desc(?instanceCount)
