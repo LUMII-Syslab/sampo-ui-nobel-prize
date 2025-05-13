@@ -289,6 +289,28 @@ export const mapDynamicCategoryGroupedBarChart = ({sparqlBindings, config}) => {
   };
 };
 
+export const mapManualNetwork = (sparqlBindings) => {
+  let results = [];
+  
+  sparqlBindings.forEach(b => {
+    // For new node (either as source/target) we add it to result set as a separate node.
+    if (!results.find((r) => r.data.id == b.source.value))
+      results.push({data: {id: b.source.value, prefLabel: b.sourceLabel.value}});
+
+    if (!results.find((r) => r.data.id == b.target.value))
+      results.push({data: {id: b.target.value, prefLabel: b.targetLabel.value}});
+
+    // Push the edge into resultSet
+    results.push({data:{weight: b.weight.value, prefLabel: b.prefLabel.value, source: b.source.value, target: b.target.value}});
+  });
+
+  return results;
+};
+
+export const copyToField = ({ data, config }) => {
+  return {[config.field]: data};
+}
+
 export const mapDynamicCategoryLineChart = ({ sparqlBindings, config }) => {
   let res = {};
 

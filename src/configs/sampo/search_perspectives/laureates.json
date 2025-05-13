@@ -25,6 +25,11 @@
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "workProperties",
+                "sparqlQuery":
+                {
+                    "type":"pipeline",
+                    "queries":[{"query":"workProperties"}, {"query":"wikiDataPortaitPhoto"}]
+                },
                 "pagesize": 10,
                 "sortBy": null,
                 "sortDirection": null

@@ -56,6 +56,31 @@ export const workProperties = `
     }         
 `;
 
+export const nobelPrizeSharedBetweenUniversitiesQuery = `
+select ?source 
+       ?target 
+       ?sourceLabel 
+       ?targetLabel 
+       (count(*) as ?weight) 
+       (STR(?weight) as ?prefLabel)
+{
+  {
+    select distinct *
+  	{
+  		?source a dbo:University ;
+  			rdfs:label ?sourceLabel ;
+  				^nobel:university/dcterms:isPartOf ?nobelPrize . 
+    	?nobelPrize dcterms:hasPart/nobel:university ?target .
+      	?target rdfs:label ?targetLabel .
+     FILTER(?source != ?target)
+     FILTER(LANG(?sourceLabel) = "en")
+     FILTER(LANG(?targetLabel) = "en")
+    }
+  }
+}
+GROUP BY ?source ?target ?sourceLabel ?targetLabel
+`
+
 export const laureatesByAffiliatedUniversityQuery = `
 # Distinct since official nobel prize SPARQL endpoint has duplicate properties for entities.
 SELECT distinct (?id as ?category) ?prefLabel ?instanceCount 
