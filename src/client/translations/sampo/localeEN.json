@@ -34,7 +34,8 @@
     "resultClasses":
     {
       "laureatesPerCategoryPieChart":"Pie chart",
-      "laureatesPerCategoryTimeline": "Timeline"
+      "laureatesPerCategoryTimeline": "Timeline",
+      "laureateSharesPerYear": "Nobel prize laureate distribution by year"
     }
   },
   "facetBar": {
@@ -90,6 +91,7 @@
     "laureate_country_map": "Laureate country map",
     "laureates_per_university": "Laureates per affiliation",
     "laureates_with_multiple_prizes_chart": "Laureate prize count",
+    "nobel_prize_laureate_shares":"Nobel Prize distribution",
     "network": "network",
     "export": "export",
     "production_dates": "production dates",

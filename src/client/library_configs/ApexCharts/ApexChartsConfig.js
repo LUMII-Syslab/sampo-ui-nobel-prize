@@ -69,6 +69,83 @@ export const createSingleLineChartData = ({
   return apexChartOptionsWithData
 }
 
+export const createGroupedBarChartData = ({
+  resultClass,
+  facetClass,
+  perspectiveState,
+  results,
+  resultClassConfig,
+  screenSize}) => {
+  const {
+    xaxisType,
+    xaxisTickAmount,
+    xaxisLabels,
+    title,
+    xaxisTitle,
+    yaxisTitle,
+    stroke,
+    fill,
+    apexChartType,
+    tooltip
+  } = resultClassConfig
+  let series = []
+
+  for (const seriesId in results.series) {
+    let seriesData = results.series[seriesId];
+    if (Array.isArray(seriesData)){
+      series.push({
+        name: intl.get(`lineChart.${seriesId}`) || seriesId,
+        data: seriesData
+      })
+    }else{
+      for (const groupId in seriesData)
+      {
+        series.push({
+          name: intl.get(`lineChart.${seriesId}`) || seriesId || intl.get(`lineChart.${groupId}`) || groupId,
+          group: intl.get(`lineChart.${groupId}`) || groupId,
+          data: seriesData[groupId]
+        })
+      }
+    }
+  }
+  
+
+  const apexChartOptionsWithData = {
+    chart: {
+      type: ( apexChartType ) || 'area',
+      stacked:true,
+      width: '100%',
+      height: '100%',
+      fontFamily: 'Roboto'
+    },
+    series: series,
+    title: {
+      text: title
+    },
+    dataLabels: {
+      enabled: false
+    },
+    xaxis: {
+      ...(xaxisType) && { type: xaxisType }, // default is 'category'
+      ...(xaxisTickAmount) && { tickAmount: xaxisTickAmount },
+      ...(xaxisLabels) && { labels: xaxisLabels },
+      categories: results.categories,
+      title: {
+        text: xaxisTitle
+      }
+    },
+    yaxis: {
+      title: {
+        text: yaxisTitle
+      }
+    },
+    ...(stroke) && { stroke },
+    ...(fill) && { fill },
+    ...(tooltip) && { tooltip }
+  }
+  return apexChartOptionsWithData
+};
+
 export const createMultipleLineChartData = ({
   resultClass,
   facetClass,

@@ -45,6 +45,42 @@ export const workProperties = `
     }
 `
 
+export const laureateSharesPerYearQuery = `
+select (CONCAT("Prize shared by ", STR(?laureateCount), " laureates") as ?category) 
+       (?prizeYear as ?xValue) 
+       (count(distinct ?id) as ?yValue)
+{
+  select ?id ?prizeYear (count(distinct ?laureateAwards) as ?laureateCount)
+  {
+    <FILTER>
+    VALUES ?facetClass { <FACET_CLASS> }
+    ?id a ?facetClass ;
+        nobel:year ?prizeYear ;
+        dcterms:hasPart ?laureateAwards .
+  }
+  GROUP BY ?id ?prizeYear
+}
+GROUP BY ?laureateCount ?prizeYear    
+`;
+
+export const laureateSharesPerCategoryQuery = `
+select (CONCAT("Prize shared by ", STR(?laureateCount), " laureates") as ?category) 
+       (REPLACE(STRAFTER(STR(?nobelCategory), STR(nobel:)), "_", " ") as ?xValue) 
+       (count(distinct ?id) as ?yValue)
+{
+  select ?id ?nobelCategory (count(distinct ?laureateAwards) as ?laureateCount)
+  {
+    <FILTER>
+    VALUES ?facetClass { <FACET_CLASS> }  
+    ?id a ?facetClass ;
+        nobel:category ?nobelCategory ;
+        dcterms:hasPart ?laureateAwards .
+  }
+  GROUP BY ?id ?nobelCategory
+}
+GROUP BY ?laureateCount ?nobelCategory
+`;
+
 export const knowledgeGraphMetadataQuery = `
   SELECT * 
   WHERE {

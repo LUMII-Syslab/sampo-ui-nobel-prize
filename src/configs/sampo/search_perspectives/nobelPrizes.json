@@ -48,8 +48,49 @@
                 }
             }
         },
-        "export": {
+        "nobelPrizeLaureateShares":{
             "tabID": 1,
+            "component": "ApexChartsDouble",
+            "tabPath": "nobel_prize_laureate_shares",
+            "tabIcon": "ShowChart",
+            "facetClass": "nobelPrizes",
+            "upperResultClass":"laureateSharesPerYear",
+            "lowerResultClass":"laureateSharesPerCategory",
+            "resultClasses":
+            {
+                "laureateSharesPerYear":
+                {
+                    "height":"50%",
+                    "sparqlQuery": "laureateSharesPerYearQuery",
+                    "resultMapper":"mapDynamicCategoryGroupedBarChart",
+                    "resultMapperConfig":{"fillEmptyValues":true},
+                    "createChartData": "createGroupedBarChartData",
+                    "apexChartType":"bar",
+                    "facetClass": "nobelPrizes",
+                    "title": "Nobel prize distribution per year",
+                    "xaxisTickAmount": 50,
+                    "xaxisType":"numerical",
+                    "xaxisTitle": "Year",
+                    "yaxisTitle":"Prize count with distribution"
+                },
+                "laureateSharesPerCategory":
+                {
+                    "height":"50%",
+                    "sparqlQuery": "laureateSharesPerCategoryQuery",
+                    "resultMapper":"mapDynamicCategoryGroupedBarChart",
+                    "resultMapperConfig":{},
+                    "createChartData": "createGroupedBarChartData",
+                    "title": "Nobel prize distribution per category",
+                    "facetClass": "nobelPrizes",
+                    "xaxisTitle": "Category",
+                    "xaxisType": "category",
+                    "apexChartType":"bar",
+                    "yaxisTitle": "Prize count with distribution"
+                }
+            }
+        },
+        "export": {
+            "tabID": 2,
             "component": "Export",
             "tabPath": "export",
             "tabIcon": "CloudDownload",
