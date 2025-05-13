@@ -277,15 +277,16 @@
             "sortBy": "instanceCount",
             "sortDirection": "desc"
         },
-        "laureateType": {
-            "containerClass": "two",
+        "gender": {
+            "containerClass": "three",
             "facetType": "list",
             "filterType": "uriFilter",
-            "hideUnknownValue": true,
-            "predicate": "rdf:type",
-            "labelPattern":"VALUES (?id ?prefLabel_) { (foaf:Person 'Person') (foaf:Organization 'Organization') }",
+            "predicate": "foaf:gender",
+            "labelPattern":"VALUES (?id ?prefLabel_) { ('male' 'Male') ('female' 'Female') }",
             "searchField": false,
+            "literal":true,
             "sortButton": false,
+            "pieChartButton": true,
             "sortBy": "instanceCount",
             "sortDirection": "desc"
         },

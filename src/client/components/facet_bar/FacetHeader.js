@@ -305,7 +305,7 @@ class FacetHeader extends React.Component {
             dialogTitle={this.props.facetLabel}
             resultClassConfig={{
               createChartData: 'createApexPieChartData',
-              property: this.props.facetID
+              propertyID: this.props.facetID
             }}
           />}
         {barChartButton &&
@@ -323,7 +323,7 @@ class FacetHeader extends React.Component {
             tooltip={intl.get('facetBar.barChart.tooltip')}
             resultClassConfig={{
               createChartData: 'createApexBarChartData',
-              property: this.props.facetID,
+              propertyID: this.props.facetID,
               title: intl.get(`facetBar.barChart.${this.props.facetID}.title`),
               xaxisTitle: intl.get(`facetBar.barChart.${this.props.facetID}.xaxisTitle`),
               yaxisTitle: intl.get(`facetBar.barChart.${this.props.facetID}.yaxisTitle`),

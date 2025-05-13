@@ -297,7 +297,7 @@ export const createApexPieChartData = ({
     series,
     labels,
     // Seems that ApexCharts requires title to be an object /w defined style.
-    title:{...apexPieChartOptions.title, text: title}
+    ...(title) && {title:{...apexPieChartOptions.title, text: title}}
   }
   return apexChartOptionsWithData
 }

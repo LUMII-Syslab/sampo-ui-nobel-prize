@@ -246,11 +246,8 @@
         },
         "gender": {
           "label": "Gender",
-          "description": "The gender of the laureate."
-        },
-        "laureateType":{
-          "label": "Laureate type",
-          "description": "The type of laureate (individual or organization)."
+          "description": "The gender of the laureate. If no gender specified, then assumed to be organization.",
+          "missingValueLabel": "Organization"
         },
         "fullName": {
           "label": "Full name",

@@ -259,7 +259,7 @@ class HierarchicalFacet extends Component {
       isSearchMatch = this.state.matches.some(match => match.node.id === node.id)
     }
     if (node.id === 'http://ldf.fi/MISSING_VALUE') {
-      node.prefLabel = generateLabelForMissingValue({ facetClass: this.props.facetClass, facetID: this.props.facetID })
+      node.prefLabel = generateLabelForMissingValue({ perspective: this.props.facetClass, property: this.props.facetID })
     }
     return (
       <>
