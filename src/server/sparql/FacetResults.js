@@ -2,7 +2,7 @@ import { has } from 'lodash'
 import { runSelectQuery } from './SparqlApi'
 import { runNetworkQuery } from './NetworkApi'
 import { makeObjectList, mapCount } from './Mappers'
-import { generateConstraintsBlock } from './Filters'
+import { generateConstraintsBlock, generateInstanceValuesConstraint } from './Filters'
 import {
   countQuery,
   facetResultSetQuery,
@@ -205,10 +205,18 @@ export const getAllResults = ({
       queryType: resultClassConfig.queryType
     })
   } else {
-    if (uri !== null) {
+    if (uri != null && typeof uri != 'undefined') {
       q = q.replace(/<ID>/g, `<${uri}>`)
+      q = q.replace(/<ID_VALUES_FILTER_TARGET_CLAUSE>/g, generateInstanceValuesConstraint(filterTarget, uri))
     }
-    // console.log(endpoint.prefixes + q)
+    else
+    {
+      q = q.replace(/<ID>/g, ``)
+      q = q.replace(/<ID_VALUES_FILTER_TARGET_CLAUSE>/g, ``)
+    }
+
+    
+    console.log(endpoint.prefixes + q)
     return runSelectQuery({
       query: endpoint.prefixes + q,
       endpoint: endpoint.url,
@@ -311,6 +319,8 @@ export const getByURI = ({
     }))
   }
   q = q.replace(/<ID>/g, `<${uri}>`)
+  q = q.replace(/<ID_VALUES_FILTER_TARGET_CLAUSE>/g, generateInstanceValuesConstraint(filterTarget, uri))
+
   if (langTag) {
     q = q.replace(/<LANG>/g, langTag)
   }

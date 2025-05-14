@@ -289,19 +289,40 @@ export const mapDynamicCategoryGroupedBarChart = ({sparqlBindings, config}) => {
   };
 };
 
+const createNodeObject = (binding, edgePos) => {
+  return {
+    data: {
+      id: binding[edgePos]?.value,
+      prefLabel: binding[`${edgePos}Label`]?.value,
+      size: binding[`${edgePos}Size`]?.value
+    }
+  };
+};
+
+const createEdgeObject = (binding) => {
+  return {
+    data: {
+      weight: binding.weight.value,
+      prefLabel: binding.prefLabel.value,
+      source: binding.source.value,
+      target: binding.target.value
+    }
+  };
+}
+
 export const mapManualNetwork = (sparqlBindings) => {
-  let results = [];
+  let results = {edges:[], nodes:[]};
   
   sparqlBindings.forEach(b => {
     // For new node (either as source/target) we add it to result set as a separate node.
-    if (!results.find((r) => r.data.id == b.source.value))
-      results.push({data: {id: b.source.value, prefLabel: b.sourceLabel.value}});
+    if (!results.nodes.find((r) => r.data.id == b.source.value))
+      results.nodes.push(createNodeObject(b, 'source'));
 
-    if (!results.find((r) => r.data.id == b.target.value))
-      results.push({data: {id: b.target.value, prefLabel: b.targetLabel.value}});
+    if (!results.nodes.find((r) => r.data.id == b.target.value))
+      results.nodes.push(createNodeObject(b, 'target'));
 
     // Push the edge into resultSet
-    results.push({data:{weight: b.weight.value, prefLabel: b.prefLabel.value, source: b.source.value, target: b.target.value}});
+    results.edges.push(createEdgeObject(b));
   });
 
   return results;

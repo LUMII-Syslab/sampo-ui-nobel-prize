@@ -349,8 +349,10 @@ const ResultClassRoute = props => {
         fitLayout = false,
         style = null,
         layout = null,
-        preprocess = null
+        preprocess = null,
+        preprocessConfig = null
       } = resultClassConfig
+      
       let networkProps = {
         portalConfig,
         perspectiveConfig: perspective,
@@ -368,6 +370,7 @@ const ResultClassRoute = props => {
         ...(style && { style }),
         ...(layout && { layout }),
         ...(preprocess && { preprocess: networkConfig[preprocess] }),
+        preprocessConfig,
         updateFacetOption: props.updateFacetOption,
         fetchFacet: props.fetchFacet,
         facetState: props.facetState,

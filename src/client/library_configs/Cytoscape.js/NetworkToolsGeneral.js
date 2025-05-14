@@ -60,6 +60,14 @@ export class ColorScaler extends ValueScaler {
     }
 }
 
+export const preprocessNodeSize = (elements, preprocessConfig) => {
+  let arr = elements.nodes.map(ele => ele.data.size)
+
+  let res = (new ColorScaler((preprocessConfig && preprocessConfig.minNodeSize) || '16px', 
+                              (preprocessConfig && preprocessConfig.maxNodeSize) || '26px')).fitTransform(arr)
+  elements.nodes.forEach((ele, i) => { ele.data.size = res[i] })
+}
+
 //  preprocess by pagerank
 export const preprocessPagerank = elements => {
   const maxEdgeWidth = 8

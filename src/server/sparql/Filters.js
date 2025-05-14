@@ -472,3 +472,7 @@ const generateConjuctionForUriFilter = ({
     return `?${filterTarget} ${predicateModified} ${valuesStr}`
   }
 }
+
+export const generateInstanceValuesConstraint = (filterTarget, uri) => {
+  return `VALUES ?${filterTarget} { <${uri}> }`;
+};

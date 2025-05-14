@@ -57,28 +57,55 @@ export const workProperties = `
 `;
 
 export const nobelPrizeSharedBetweenUniversitiesQuery = `
-select ?source 
-       ?target 
-       ?sourceLabel 
-       ?targetLabel 
-       (count(*) as ?weight) 
-       (STR(?weight) as ?prefLabel)
+select 
+    ?source
+    ?target
+    ?sourceLabel
+    ?sourceSize
+    ?targetLabel
+    ?targetSize
+    ?weight
+    (STR(?weight) as ?prefLabel)
 {
   {
-    select distinct *
-  	{
-  		?source a dbo:University ;
-  			rdfs:label ?sourceLabel ;
-  				^nobel:university/dcterms:isPartOf ?nobelPrize . 
-    	?nobelPrize dcterms:hasPart/nobel:university ?target .
-      	?target rdfs:label ?targetLabel .
-     FILTER(?source != ?target)
-     FILTER(LANG(?sourceLabel) = "en")
-     FILTER(LANG(?targetLabel) = "en")
+    select ?source ?target ?sourceLabel ?targetLabel (count(*) as ?weight)
+    {
+      {
+        select distinct *
+        {
+            <ID_VALUES_FILTER_TARGET_CLAUSE>    
+            ?source a dbo:University ;
+                rdfs:label ?sourceLabel ;
+                    ^nobel:university/dcterms:isPartOf ?nobelPrize . 
+            ?nobelPrize dcterms:hasPart/nobel:university ?target .
+            ?target rdfs:label ?targetLabel .
+            FILTER(?source != ?target)
+            FILTER(LANG(?sourceLabel) = "en")
+            FILTER(LANG(?targetLabel) = "en")
+        }
+      }
     }
+	GROUP BY ?source ?target ?sourceLabel ?targetLabel
+  }
+  {
+    # Distinct jāpielieto, jo nobela prēmiju datu kopā īpašības dublējās, tādēļ ar distinct mēs tikai unikālās laureātu balvas uzskaitam.
+    select ?source (count(distinct ?laureateAward) as ?sourceSize)
+    {
+      ?source a dbo:University ;
+              ^nobel:university ?laureateAward .      
+    }
+    GROUP BY ?source
+  }
+  {
+    # Distinct jāpielieto, jo nobela prēmiju datu kopā īpašības dublējās, tādēļ ar distinct mēs tikai unikālās laureātu balvas uzskaitam.
+    select ?target (count(distinct ?laureateAward) as ?targetSize)
+    {
+      ?target a dbo:University ;
+              ^nobel:university ?laureateAward .      
+    }
+    GROUP BY ?target
   }
 }
-GROUP BY ?source ?target ?sourceLabel ?targetLabel
 `
 
 export const laureatesByAffiliatedUniversityQuery = `

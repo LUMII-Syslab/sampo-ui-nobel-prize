@@ -172,7 +172,7 @@ class Network extends React.Component {
       this.cy.elements().remove()
       this.cy.resize() // this fixes panning issues on a faceted search perspective
       if (this.props.preprocess) {
-        this.props.preprocess(this.props.results.elements)
+        this.props.preprocess(this.props.results.elements, this.props.preprocessConfig)
       }
       this.cy.add(this.props.results.elements)
       if (this.props.layout) {
@@ -229,6 +229,7 @@ Network.propTypes = {
   style: PropTypes.array.isRequired,
   layout: PropTypes.object,
   preprocess: PropTypes.func,
+  preprocessConfig: PropTypes.object,
   fetching: PropTypes.bool,
   fitLayout: PropTypes.bool,
   layoutConfig: PropTypes.object.isRequired
