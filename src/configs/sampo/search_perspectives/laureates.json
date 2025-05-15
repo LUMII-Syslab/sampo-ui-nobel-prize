@@ -117,7 +117,6 @@
             "sparqlQuery": "laureateBirthCountryMapQuery",
             "facetClass": "laureates",
             "filterTarget": "laureate",
-            "resultMapper": "mapPlaces",
             "instanceConfig": {
                 "propertiesQueryBlock": "laureateBirthCountryInstancePropertyQuery",
                 "relatedInstances": "laureateBirthCountryMapRelatedQuery",
@@ -188,7 +187,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 280
+            "minWidth": 250
         },
         {
             "id":"affiliation",

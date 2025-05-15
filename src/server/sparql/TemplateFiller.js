@@ -4,7 +4,6 @@ import { get } from "lodash"
 export const fillIDSets = (resultSet, sparqlTemplate, config) => {
     config = config || {};
 
-    console.log(config);
     let ids = resultSet.map((e) => `<${get(e, "id.value", e.id)}>`);
     let idsRelated = config.relatedProperty ? resultSet.filter((e) => !!e[config.relatedProperty])
                                               .map((e) => `(<${get(e, "id.value", e.id)}> <${get(e, `${config.relatedProperty}.value`, e[config.relatedProperty])}>)`)

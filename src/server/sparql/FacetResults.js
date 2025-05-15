@@ -225,7 +225,9 @@ export const getAllResults = async ({
       useNetworkAPI,
       resultMapper = null, 
       resultMapperConfig = null, 
-      postprocess = null
+      postprocess = null,
+      templateFiller = fillIDSets,
+      templateFillerConfig = null
     } = queryObj;
 
     if (constraints == null && defaultConstraint == null) {
@@ -273,6 +275,8 @@ export const getAllResults = async ({
     
     //console.log(endpoint.prefixes + q)
     try{
+      q = templateFiller(finalResultSet, q, templateFillerConfig);
+
       if (useNetworkAPI) {
         let results = runNetworkQuery({
           endpoint: endpoint.url,
@@ -436,7 +440,9 @@ export const getByURI = async ({
       endpoint, 
       resultMapper = null, 
       resultMapperConfig = null, 
-      postprocess = null
+      postprocess = null,
+      templateFiller = fillIDSets,
+      templateFillerConfig = null
     } = queryObj;
       
     q = q.replace('<PROPERTIES>', propertiesQueryBlock)
@@ -465,6 +471,8 @@ export const getByURI = async ({
      
     // console.log(endpoint.prefixes + q)
     try{
+      q = templateFiller(finalResultSet, q, templateFillerConfig);
+
       let results = await runSelectQuery({
         query: perspectiveEndpoint.prefixes + q,
         // Currently authentication is limited to only the main endpoint of perspective.

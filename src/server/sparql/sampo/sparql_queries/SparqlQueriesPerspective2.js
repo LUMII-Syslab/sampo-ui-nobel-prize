@@ -67,13 +67,17 @@ export const workProperties = `
 
 export const laureateWikiDataQuery = [{
   sparqlQuery: `
-  SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage__url) as ?laureateImage__id) {
+  SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage) as ?laureateImage__id) {
     VALUES (?id ?wd_id) { <ID_RELATED_SET> }
 
     ?wd_id wdt:P8024 [] ; # Ar laurēata ārējo datu kopas property cheku strādā diezgan ātri.
           # Q5 ir Wikidata ID, kas apzīmē personu (Human).
           wdt:P31 <http://www.wikidata.org/entity/Q5> ;
-          wdt:P18 ?laureateImage__url .
+          wdt:P18 ?laureateImage .
+
+    BIND(CONCAT("https://commons.wikimedia.org/w/thumb.php?f=",
+            REPLACE(STR(?laureateImage), "^.+/(.+)$", "$1"),
+            "&w=300") AS ?laureateImage__url)
   }
   `,
   dataSet: 'wikidata',
@@ -133,35 +137,45 @@ export const laureatesByCategoryTimelineQuery = `
   ORDER BY desc(?nobelCategory) asc(?nobelYear)
 `;
 
-export const laureateBirthCountryMapQuery = `
-SELECT DISTINCT ?id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?lat) ?instanceCount WHERE {
+export const laureateBirthCountryMapQuery = [{
+  sparqlQuery: `
+    SELECT DISTINCT ?id ?wiki_country_id ?instanceCount WHERE {
+      {
+        select ?id (count(DISTINCT ?laureate) as ?instanceCount) 
+        {
+          <FILTER>
+          ?laureate a nobel:Laureate ;
+              dbo:birthPlace ?id .
+          # Only consider countries (ignore cities)
+          FILTER(EXISTS {?id a dbo:Country .})
+        }
+        GROUP BY ?id
+      }
+      {
+        ?id a dbo:Country ;
+            owl:sameAs ?wiki_country_id .
+      }
+    }`
+  },
   {
-    select ?id (count(DISTINCT ?laureate) as ?instanceCount) 
-    {
-      <FILTER>
-      ?laureate a nobel:Laureate ;
-  				dbo:birthPlace ?id .
-      # Only consider countries (ignore cities)
-      FILTER(EXISTS {?id a dbo:Country .})
-    }
-    GROUP BY ?id
-  }
-  {
-    ?id a dbo:Country ;
-        owl:sameAs ?wiki_country_id .
+    sparqlQuery: `
+      SELECT ?id ?wiki_country_id (xsd:decimal(?lonStr) AS ?long) (xsd:decimal(?latStr) AS ?lat) {
+        VALUES (?id ?wiki_country_id) { <ID_RELATED_SET> }
+  
+        # Q6256 ir Wikidata ID, kas apzīmē valsti.
+        ?wiki_country_id wdt:P31 <http://www.wikidata.org/entity/Q6256> ;
+                         wdt:P625 ?coordinatesRaw .
+  
+        # Wikidata tiek pilsētas koordinātas glabātas iekš wktWKT literal, bet SAMPO-UI nepieciešami platuma un garuma grādi, tādēļ tos te izgūstam no teksta literāļa.
+        BIND(REPLACE(STR(?coordinatesRaw), "^Point\\\\(|\\\\)$", "") AS ?coordPair)
+        BIND(STRBEFORE(?coordPair, " ") AS ?lonStr)
+        BIND(STRAFTER(?coordPair, " ") AS ?latStr)
+      }
+    `,
+    dataSet: 'wikidata',
+    templateFillerConfig: { relatedProperty: "wiki_country_id" }
+  }];
 
-    SERVICE <https://query.wikidata.org/sparql> {
-      # Q6256 ir Wikidata ID, kas apzīmē valsti.
-      ?wiki_country_id wdt:P31 <http://www.wikidata.org/entity/Q6256> ;
-                       wdt:P625 ?coordinatesRaw .
-
-      # Wikidata tiek pilsētas koordinātas glabātas iekš wktWKT literal, bet SAMPO-UI nepieciešami platuma un garuma grādi, tādēļ tos te izgūstam no teksta literāļa.
-      BIND(REPLACE(STR(?coordinatesRaw), "^Point\\\\(|\\\\)$", "") AS ?coordPair)
-      BIND(STRBEFORE(?coordPair, " ") AS ?lonStr)
-      BIND(STRAFTER(?coordPair, " ") AS ?latStr)
-    }
-  }
-}`;
 
 export const laureatesWithMultiplePrizesQuery = `
 # Distinct since official nobel prize SPARQL endpoint has duplicate properties for entities.
