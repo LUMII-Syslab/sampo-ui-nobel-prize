@@ -85,7 +85,7 @@ select
         }
       }
     }
-	GROUP BY ?source ?target ?sourceLabel ?targetLabel
+	  GROUP BY ?source ?target ?sourceLabel ?targetLabel
   }
   {
     # Distinct jāpielieto, jo nobela prēmiju datu kopā īpašības dublējās, tādēļ ar distinct mēs tikai unikālās laureātu balvas uzskaitam.

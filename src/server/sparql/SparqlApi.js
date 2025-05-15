@@ -1,6 +1,8 @@
 import axios from 'axios'
 import querystring from 'querystring'
 
+import { applyPostProcessing } from './Utils'
+
 export const runSelectQuery = async ({
   query,
   endpoint,
@@ -23,22 +25,19 @@ export const runSelectQuery = async ({
   }
   const q = querystring.stringify({ query })
   try {
-
     const response = await axios({
       method: 'post',
       headers: headers,
       url: endpoint,
       data: q
     })
+
     if (resultFormat === 'json') {
-      let mappedResults = resultMapperConfig
-        ? resultMapper({ sparqlBindings: response.data.results.bindings, config: resultMapperConfig })
-        : resultMapper(response.data.results.bindings)
-      if (postprocess) {
-        mappedResults = postprocess.func({ data: mappedResults, config: postprocess.config })
-      }
       return {
-        data: mappedResults,
+        data: applyPostProcessing({data: response.data.results.bindings, 
+                                   resultMapper, 
+                                   resultMapperConfig, 
+                                   postprocess}),
         sparqlQuery: query
       }
     } else {

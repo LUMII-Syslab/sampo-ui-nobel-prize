@@ -16,6 +16,11 @@ export const workProperties = `
     }
     UNION
     {
+      ?id owl:sameAs ?wd_id .
+      FILTER(isIRI(?wd_id))
+    }
+    UNION
+    {
       # Retrieve full label of the laureate, if it exists (Doesn't seems that language tags are used).
       ?id rdfs:label ?fullName .
     }
@@ -58,6 +63,22 @@ export const workProperties = `
       BIND(STR(?foundingLocationLabel) AS ?foundingLocation__prefLabel)
     }
 `
+
+
+export const laureateWikiDataQuery = [{
+  sparqlQuery: `
+  SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage__url) as ?laureateImage__id) {
+    VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+
+    ?wd_id wdt:P8024 [] ; # Ar laurēata ārējo datu kopas property cheku strādā diezgan ātri.
+          # Q5 ir Wikidata ID, kas apzīmē personu (Human).
+          wdt:P31 <http://www.wikidata.org/entity/Q5> ;
+          wdt:P18 ?laureateImage__url .
+  }
+  `,
+  dataSet: 'wikidata',
+  templateFillerConfig: { relatedProperty: "wd_id" }
+}]
 
 export const laureatesByBirthCountryQuery = `
     SELECT ?prefLabel 

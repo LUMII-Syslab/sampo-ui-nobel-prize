@@ -25,11 +25,7 @@
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "workProperties",
-                "sparqlQuery":
-                {
-                    "type":"pipeline",
-                    "queries":[{"query":"workProperties"}, {"query":"wikiDataPortaitPhoto"}]
-                },
+                "sparqlQuery":"laureateWikiDataQuery",
                 "pagesize": 10,
                 "sortBy": null,
                 "sortDirection": null
@@ -160,6 +156,11 @@
             "zoom": 2
         }
     },
+    "datasets":{
+        "wikidata":{
+            "endpoint":{"url": "https://query.wikidata.org/sparql"}
+        }
+    },
     "properties": [
         {
             "id": "uri",
@@ -183,6 +184,7 @@
             "id":"laureateImage",
             "valueType":"image",
             "makeLink": false,
+            "previewImageHeight":100,
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
