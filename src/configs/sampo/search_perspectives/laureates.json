@@ -32,6 +32,7 @@
             },
             "instanceConfig": {
                 "propertiesQueryBlock": "workProperties",
+                "sparqlQuery":"laureateWikiDataQuery",
                 "instancePageResultClasses": {
                     "instancePageTable": {
                         "tabID": 0,

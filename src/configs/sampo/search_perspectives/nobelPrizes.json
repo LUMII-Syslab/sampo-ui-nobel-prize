@@ -149,15 +149,6 @@
             "minWidth": 150
         },
         {
-            "id":"laureate_count",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": false,
-            "numberedList": false,
-            "valueType": "string",
-            "minWidth": 20	
-        },
-        {
             "id":"laureate",
             "valueType": "object",
             "makeLink": true,

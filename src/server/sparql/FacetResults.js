@@ -423,7 +423,7 @@ export const getByURI = async ({
     sparqlQuery = []
   } = resultClassConfig.instanceConfig
 
-
+ 
 
   // Prepend as first the paginated result set query to execute it first to limit results.
   sparqlQuery.unshift({

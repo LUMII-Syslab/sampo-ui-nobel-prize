@@ -36,15 +36,14 @@ export const createBackendSearchConfig = async () => {
       paginatedResultsConfig.propertiesQueryBlock = paginatedResultsPropertiesQueryBlock
 
       // Process the paginatedResultsConfig resultClass
-      processResultClassConfig(paginatedResultsConfig, sparqlQueries, resultMappers, templateFillers, perspectiveConfig, true);
+      processResultClassConfig(paginatedResultsConfig, sparqlQueries, resultMappers, templateFillers, perspectiveConfig);
       if (instanceConfig) {
         const instancePagePropertiesQueryBlockID = instanceConfig.propertiesQueryBlock
         const instancePagePropertiesQueryBlock = sparqlQueries[instancePagePropertiesQueryBlockID]
         instanceConfig.propertiesQueryBlock = instancePagePropertiesQueryBlock
         
-        if (instanceConfig.postprocess) {
-          instanceConfig.postprocess.func = resultMappers[instanceConfig.postprocess.func]
-        }
+        // Process the instanceConfig resultClass
+        processResultClassConfig(instanceConfig, sparqlQueries, resultMappers, templateFillers, perspectiveConfig);
 
         if (has(instanceConfig, 'instancePageResultClasses')) {
           for (const instancePageResultClass in instanceConfig.instancePageResultClasses) {
@@ -158,7 +157,6 @@ const processResultClassConfig = (resultClassConfig, sparqlQueries, resultMapper
   if (resultClassConfig.sparqlQuery) {
     let resultClassQuery = sparqlQueries[resultClassConfig.sparqlQuery];
     
-    console.log(resultClassQuery)
     sparqlQueryArr = (Array.isArray(resultClassQuery) ? resultClassQuery : 
       [{
         sparqlQuery: resultClassQuery,
