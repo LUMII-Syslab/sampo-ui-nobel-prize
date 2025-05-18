@@ -135,7 +135,7 @@ export const getPaginatedResults = async ({
         let {data, sparqlQuery:query} = results;
 
         finalResultSet = finalResultSet.concat(data);
-        finalQuery += query + `\n___<${endpoint.url}>___\n`;
+        finalQuery += `\n___<${endpoint.url}>___\n` + query;
       }
     }
     catch(e) {
@@ -317,7 +317,7 @@ export const getAllResults = async ({
           let {data, sparqlQuery:query} = results;
   
           finalResultSet = finalResultSet.concat(data);
-          finalQuery += query + `\n___<${endpoint.url}>___\n`;
+          finalQuery += `\n___<${endpoint.url}>___\n` + query;
         }
       }
     }
@@ -490,7 +490,7 @@ export const getByURI = async ({
         let {data, sparqlQuery:query} = results;
 
         finalResultSet = finalResultSet.concat(data);
-        finalQuery += query + `\n___<${endpoint.url}>___\n`;
+        finalQuery += `\n___<${endpoint.url}>___\n` + query;
       }
     }
     catch(e) {

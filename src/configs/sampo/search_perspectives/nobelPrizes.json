@@ -31,6 +31,7 @@
                 "sortDirection": "desc"
             },
             "instanceConfig": {
+                "localIDAsURI":true,
                 "propertiesQueryBlock": "workProperties",
                 "instancePageResultClasses": {
                     "instancePageTable": {

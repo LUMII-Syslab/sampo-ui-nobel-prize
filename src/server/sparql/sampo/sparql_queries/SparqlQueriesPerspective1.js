@@ -1,27 +1,24 @@
 const perspectiveID = 'nobelPrizes'
 
 export const workProperties = `
-    BIND(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1") as ?local_id)
-    # To use the same query block for paged and instance page, then we must decode from instance page last URL path the encoded resource URI.
-    BIND(IF(EXISTS {?id a nobel:NobelPrize .}, ?id, IRI(CONCAT(REPLACE(STR(?id), "^(.*\\\\/).+", '$1'), REPLACE(?local_id, '___', '\\\\/')))) AS ?final_id)
     {
-      ?final_id rdfs:label ?prefLabel__id ;
+      ?id rdfs:label ?prefLabel__id ;
                 nobel:category ?category__id ;
                 nobel:year ?year .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
       # For shown field we remove the underscores from category name, but we must preserve them for encoding the entity id.
       BIND(REPLACE(STR(?category__id), "^.*\\\\/(.+)", "$1") AS ?category_original)
       BIND(REPLACE(?category_original, "_", " ") AS ?category)
-      BIND(CONCAT("/${perspectiveID}/page/", ?category_original, "___", STR(?year)) AS ?prefLabel__dataProviderUrl)
-      BIND(?final_id as ?uri__id)
-      BIND(?final_id as ?uri__dataProviderUrl)
-      BIND(?final_id as ?uri__prefLabel)
+      BIND(CONCAT("/${perspectiveID}/page/", ENCODE_FOR_URI(STR(?id))) AS ?prefLabel__dataProviderUrl)
+      BIND(?id as ?uri__id)
+      BIND(?id as ?uri__dataProviderUrl)
+      BIND(?id as ?uri__prefLabel)
       FILTER(LANG(?prefLabel__prefLabel) = 'en')
     }
     UNION
     {
       # Fetch nobel prize laureates
-      ?final_id dcterms:hasPart ?laureateAward .
+      ?id dcterms:hasPart ?laureateAward .
       ?laureateAward nobel:laureate ?laureate__id ;
                      nobel:sortOrder ?laureate__sortOrder ;
                      nobel:share     ?laureate__share .
@@ -40,7 +37,7 @@ export const workProperties = `
     }
     UNION 
     {
-      ?final_id nobel:motivation ?motivation.
+      ?id nobel:motivation ?motivation.
       FILTER(LANG(?motivation) = 'en')
     }
 `
