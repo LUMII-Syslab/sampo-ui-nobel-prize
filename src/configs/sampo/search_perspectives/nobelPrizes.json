@@ -22,6 +22,7 @@
             "paginatedResultsConfig": {
                 "tabID": 0,
                 "component": "ResultTable",
+                "paginatedResultsAlwaysExpandRows":true,
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "workProperties",
@@ -153,6 +154,7 @@
             "valueType": "object",
             "makeLink": true,
             "externalLink": false,
+            "expandedOnInstancePage":true,
             "disableSort": true,
             "sortValues": true,
             "sortBy":"sortOrder",
