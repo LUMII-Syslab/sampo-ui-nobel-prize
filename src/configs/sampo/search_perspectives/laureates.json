@@ -82,7 +82,7 @@
                 "laureatesPerCategoryTimeline":
                 {
                     "sparqlQuery": "laureatesByCategoryTimelineQuery",
-                    "resultMapper":"mapDynamicCategoryChart",
+                    "resultMapper":"mapDynamicCategoryLineChart",
                     "resultMapperConfig":
                     {
                         "fillEmptyValues":true

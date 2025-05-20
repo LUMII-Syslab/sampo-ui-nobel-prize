@@ -87,6 +87,7 @@
                     "xaxisTitle": "Category",
                     "xaxisType": "category",
                     "apexChartType":"bar",
+                    "stackedBar":false,
                     "yaxisTitle": "Prize count with distribution"
                 }
             }

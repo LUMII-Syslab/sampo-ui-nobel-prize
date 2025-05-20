@@ -86,6 +86,7 @@ export const createGroupedBarChartData = ({
     stroke,
     fill,
     apexChartType,
+    stackedBar = true,
     tooltip
   } = resultClassConfig
   let series = []
@@ -113,7 +114,7 @@ export const createGroupedBarChartData = ({
   const apexChartOptionsWithData = {
     chart: {
       type: ( apexChartType ) || 'area',
-      stacked:true,
+      stacked:stackedBar,
       width: '100%',
       height: '100%',
       fontFamily: 'Roboto'
