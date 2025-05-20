@@ -78,7 +78,7 @@ export const getPaginatedResults = async ({
     }
     if (sortBy == null) {
       q = q.replace('<ORDER_BY_TRIPLE>', '')
-      q = q.replace('<ORDER_BY>', '# no sorting')
+      q = q.replaceAll('<ORDER_BY>', '# no sorting')
     }
     if (sortBy !== null) {
       let sortByPredicate
