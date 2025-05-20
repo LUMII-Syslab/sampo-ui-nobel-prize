@@ -142,8 +142,8 @@
             "component": "Export",
             "tabPath": "export",
             "tabIcon": "CloudDownload",
-            "resultClass": "perspective2",
-            "facetClass": "perspective2"
+            "resultClass": "laureates",
+            "facetClass": "laureates"
         },
         "knowledgeGraphMetadata": {
             "sparqlQuery": "knowledgeGraphMetadataQuery",

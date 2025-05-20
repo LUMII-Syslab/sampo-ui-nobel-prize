@@ -198,8 +198,8 @@
             "component": "Export",
             "tabPath": "export",
             "tabIcon": "CloudDownload",
-            "resultClass": "perspective2",
-            "facetClass": "perspective2"
+            "resultClass": "universities",
+            "facetClass": "universities"
         },
         "knowledgeGraphMetadata": {
             "sparqlQuery": "knowledgeGraphMetadataQuery",

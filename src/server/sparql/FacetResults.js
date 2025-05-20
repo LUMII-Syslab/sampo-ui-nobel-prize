@@ -52,7 +52,7 @@ export const getPaginatedResults = async ({
 
   // Construct and execute sequentially queries:
   let finalResultSet = [];
-  let finalQuery;
+  let finalQuery = "";
   for (let [idx, queryObj] of sparqlQuery.entries()){
     let { 
       sparqlQuery:q, 
@@ -135,7 +135,7 @@ export const getPaginatedResults = async ({
         let {data, sparqlQuery:query} = results;
 
         finalResultSet = finalResultSet.concat(data);
-        finalQuery += `\n___<${endpoint.url}>___\n` + query;
+        finalQuery += `\n##___<${endpoint.url}>___\n` + query;
       }
     }
     catch(e) {
@@ -157,7 +157,7 @@ export const getPaginatedResults = async ({
 
   return {
     data:  finalResultSet, 
-    query: finalQuery
+    sparqlQuery: finalQuery
   }
 }
 
@@ -216,7 +216,7 @@ export const getAllResults = async ({
   } = resultClassConfig
 
   let finalResultSet = [];
-  let finalQuery;
+  let finalQuery = "";
   for (let [idx, queryObj] of sparqlQuery.entries()){
     let { 
       sparqlQuery:q,
@@ -317,7 +317,7 @@ export const getAllResults = async ({
           let {data, sparqlQuery:query} = results;
   
           finalResultSet = finalResultSet.concat(data);
-          finalQuery += `\n___<${endpoint.url}>___\n` + query;
+          finalQuery += `\n##___<${endpoint.url}>___\n` + query;
         }
       }
     }
@@ -340,7 +340,7 @@ export const getAllResults = async ({
 
   return {
     data:  finalResultSet, 
-    query: finalQuery
+    sparqlQuery: finalQuery
   };
 }
 
@@ -433,7 +433,7 @@ export const getByURI = async ({
 
   // Construct and execute sequentially queries:
   let finalResultSet = [];
-  let finalQuery;
+  let finalQuery = "";
   for (let [idx, queryObj] of sparqlQuery.entries()){
     let { 
       sparqlQuery:q, 
@@ -490,7 +490,7 @@ export const getByURI = async ({
         let {data, sparqlQuery:query} = results;
 
         finalResultSet = finalResultSet.concat(data);
-        finalQuery += `\n___<${endpoint.url}>___\n` + query;
+        finalQuery += `\n##___<${endpoint.url}>___\n` + query;
       }
     }
     catch(e) {
@@ -512,6 +512,6 @@ export const getByURI = async ({
 
   return {
     data:  finalResultSet, 
-    query: finalQuery
+    sparqlQuery: finalQuery
   }
 }
