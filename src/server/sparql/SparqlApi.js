@@ -30,7 +30,7 @@ export const runSelectQuery = async ({
       headers: headers,
       url: endpoint,
       data: q
-    })
+    })    
 
     if (resultFormat === 'json') {
       return {
