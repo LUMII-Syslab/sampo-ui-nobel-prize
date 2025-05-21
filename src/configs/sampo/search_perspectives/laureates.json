@@ -215,7 +215,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 150
+            "minWidth": 50
         },
         {
             "id": "deathDate",
@@ -224,7 +224,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 150
+            "minWidth": 50
         },
         {
             "id": "foundingDate",

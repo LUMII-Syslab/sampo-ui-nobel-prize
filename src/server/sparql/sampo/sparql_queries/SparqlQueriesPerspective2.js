@@ -30,6 +30,10 @@ export const workProperties = `
       ?id dbp:dateOfBirth ?birthDate .
     }
     UNION
+    {  
+      ?id dbp:dateOfDeath ?deathDate .
+    }
+    UNION
     {
       ?id foaf:gender ?gender .
     }
