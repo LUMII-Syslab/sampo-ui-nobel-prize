@@ -93,7 +93,7 @@ export const laureatesByBirthCountryQuery = `
            ?instanceCount
 		       ?category
            {
-            SELECT ?category ?prefLabel (count(?id) as ?instanceCount) 
+            SELECT ?category ?prefLabel (count(distinct ?id) as ?instanceCount) 
            {
             <FILTER>
             VALUES ?facetClass {<FACET_CLASS>}
