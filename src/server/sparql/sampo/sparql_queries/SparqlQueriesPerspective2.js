@@ -123,6 +123,7 @@ export const laureatesByCategoryQuery = `
           }
           GROUP BY ?category
         }
+   ORDER BY asc(?category)
 `;
 
 export const laureatesByCategoryTimelineQuery = `
