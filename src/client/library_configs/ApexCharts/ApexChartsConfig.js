@@ -2,7 +2,7 @@ import intl from 'react-intl-universal'
 import { generateLabelForMissingValue } from '../../helpers/helpers'
 
 // list of colors generated with http://phrogz.net/css/distinct-colors.html
-const pieChartColors = ['#a12a3c', '#0f00b5', '#81c7a4', '#ffdea6', '#ff0033', '#424cff', '#1b6935', '#ff9d00', '#5c3c43',
+const pieChartColors = ['#a12a3c', '#0f00b5', '#81c7a4', '#ff0033', '#424cff', '#1b6935', '#ff9d00', '#5c3c43',
   '#5f74b8', '#18b532', '#3b3226', '#fa216d', '#153ca1', '#00ff09', '#703a00', '#b31772', '#a4c9fc', '#273623',
   '#f57200', '#360e2c', '#001c3d', '#ccffa6', '#a18068', '#ba79b6', '#004e75', '#547500', '#c2774c', '#f321fa', '#1793b3',
   '#929c65', '#b53218', '#563c5c', '#1ac2c4', '#c4c734', '#4c150a', '#912eb3', '#2a5252', '#524b00', '#bf7d7c', '#24005e',
@@ -202,6 +202,7 @@ export const createMultipleLineChartData = ({
       }
     },
     ...(stroke) && { stroke },
+    colors: pieChartColors,
     ...(fill) && { fill },
     ...(tooltip) && { tooltip }
   }

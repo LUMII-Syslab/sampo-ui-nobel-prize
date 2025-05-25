@@ -57,7 +57,8 @@ select (CONCAT("Prize shared by ", STR(?laureateCount), " laureates") as ?catego
   }
   GROUP BY ?id ?prizeYear
 }
-GROUP BY ?laureateCount ?prizeYear    
+GROUP BY ?laureateCount ?prizeYear
+ORDER BY asc(?laureateCount)    
 `;
 
 export const laureateSharesPerCategoryQuery = `

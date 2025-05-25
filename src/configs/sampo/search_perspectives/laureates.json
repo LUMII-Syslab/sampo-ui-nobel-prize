@@ -144,10 +144,6 @@
             "tabIcon": "CloudDownload",
             "resultClass": "laureates",
             "facetClass": "laureates"
-        },
-        "knowledgeGraphMetadata": {
-            "sparqlQuery": "knowledgeGraphMetadataQuery",
-            "resultMapper": "makeObjectList"
         }
     },
     "maps":{
@@ -178,7 +174,17 @@
             "externalLink": false,
             "sortValues": true,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 100
+        },
+        {
+            "id": "fullName",
+            "valueType": "string",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": true,
+            "numberedList": false,
+            "minWidth": 250,
+            "onlyOnInstancePage": true
         },
         {
             "id":"laureateImage",
@@ -188,7 +194,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 100
         },
         {
             "id":"affiliation",
@@ -197,7 +203,7 @@
             "externalLink":true,
             "sortValues":false,
             "numberedList":false,
-            "minWidth":250
+            "minWidth":150
         },
         {
             "id": "birthPlaceLabel",
@@ -206,7 +212,7 @@
             "externalLink": true,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 50
         },
         {
             "id": "birthDate",
@@ -233,7 +239,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 150
+            "minWidth": 50
         },
         {
             "id": "foundingLocation",
@@ -242,7 +248,7 @@
             "externalLink": true,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 250
+            "minWidth": 50
         },
         {
             "id": "gender",
@@ -251,17 +257,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 100
-        },
-        {
-            "id": "fullName",
-            "valueType": "string",
-            "makeLink": false,
-            "externalLink": false,
-            "sortValues": true,
-            "numberedList": false,
-            "minWidth": 250,
-            "onlyOnInstancePage": true
+            "minWidth": 50
         }
     ],
     "facets": {

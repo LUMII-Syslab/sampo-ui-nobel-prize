@@ -71,8 +71,8 @@
                                     "target-arrow-color": "#999",
                                     "color": "#555",
                                     "font-size": "6",
-                                    "source-arrow-shape":"triangle",
-                                    "target-arrow-shape":"triangle",
+                                    "source-arrow-shape":"none",
+                                    "target-arrow-shape":"none",
                                     "text-valign": "top",
                                     "text-halign": "center",
                                     "edge-text-rotation": "autorotate",
@@ -127,74 +127,8 @@
             "xaxisTitle": "University",
             "yaxisTitle": "Affiliated laureate awards"
         },
-        "universityAffiliationsNetwork":{
-            "tabID": 2,
-            "component": "Network",
-            "tabPath": "network",
-            "tabIcon": "BubbleChart",
-            "resultMapper":"mapManualNetwork",
-            "sparqlQuery": "nobelPrizeSharedBetweenUniversitiesQuery",
-            "postprocess": {
-                "func": "copyToField",
-                "config": {
-                    "field": "elements"
-                }
-            },
-            "filterTarget":"source",
-            "preprocess":"preprocessNodeSize",
-            "preprocessConfig":{"minNodeSize":"14px", "maxNodeSize":"26px"},
-            "facetClass": "universities",
-            "style": [
-                {
-                    "selector": "node",
-                    "style": {
-                        "shape": "ellipse",
-                        "label": "data(prefLabel)",
-                        "width": "data(size)",
-                        "height": "data(size)"
-                    }
-                },
-                {
-                "selector": "edge",
-                    "style": {
-                        "curve-style": "straight",
-                        "target-arrow-color": "#999",
-                        "color": "#555",
-                        "font-size": "6",
-                        "source-arrow-shape":"triangle",
-                        "target-arrow-shape":"triangle",
-                        "text-valign": "top",
-                        "text-halign": "center",
-                        "edge-text-rotation": "autorotate",
-                        "text-background-opacity": 1,
-                        "text-background-color": "white",
-                        "text-background-shape": "roundrectangle",
-                        "width": "data(weight)",
-                        "content": "data(prefLabel)"
-                    }
-                }
-            ],
-            "layout": {
-                "name": "cose",
-                "idealEdgeLength": 100,
-                "nodeOverlap": 20,
-                "refresh": 20,
-                "fit": true,
-                "padding": 30,
-                "randomize": false,
-                "componentSpacing": 100,
-                "nodeRepulsion": 400000,
-                "edgeElasticity": 100,
-                "nestingFactor": 5,
-                "gravity": 80,
-                "numIter": 1347,
-                "initialTemp": 200,
-                "coolingFactor": 0.95,
-                "minTemp": 1
-            }
-        },
         "export": {
-            "tabID": 3,
+            "tabID": 2,
             "component": "Export",
             "tabPath": "export",
             "tabIcon": "CloudDownload",

@@ -42,7 +42,7 @@ export const workProperties = `
       ?id dbo:affiliation ?affiliation__id .
       ?affiliation__id rdfs:label ?affiliationLabel .
       BIND(STR(?affiliationLabel) AS ?affiliation__prefLabel)
-      BIND(STR(?affiliation__id) AS ?affiliation__dataProviderUrl)
+      BIND(CONCAT("/universities/page/", REPLACE(STR(?affiliation__id), "^.*\\\\/(.+)", "$1")) AS ?affiliation__dataProviderUrl)
     }
     UNION
     {
