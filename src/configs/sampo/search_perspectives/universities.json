@@ -25,10 +25,12 @@
                 "tabPath": "table",
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "workProperties",
+                "sparqlQuery": "retrieveMostAwaredCategoryQuery",
                 "pagesize": 10
             },
             "instanceConfig": {
                 "propertiesQueryBlock": "workProperties",
+                "sparqlQuery": "retrieveMostAwaredCategoryQuery",
                 "instancePageResultClasses": {
                     "instancePageTable": {
                         "tabID": 0,

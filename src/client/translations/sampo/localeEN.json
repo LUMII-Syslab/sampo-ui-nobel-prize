@@ -254,6 +254,10 @@
         "fullName": {
           "label": "Full name",
           "description": "The full name of the laureate."
+        },
+        "nobelPrize": {
+          "label": "Nobel prizes",
+          "description": "The nobel prizes that the laureate has been awared."
         }
       }
     },

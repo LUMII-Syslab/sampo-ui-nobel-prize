@@ -258,6 +258,16 @@
             "sortValues": false,
             "numberedList": false,
             "minWidth": 50
+        },
+        {
+            "id": "nobelPrize",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": false,
+            "sortValues": true,
+            "sortBy":"prizeYear",
+            "numberedList": false,
+            "minWidth": 100
         }
     ],
     "facets": {

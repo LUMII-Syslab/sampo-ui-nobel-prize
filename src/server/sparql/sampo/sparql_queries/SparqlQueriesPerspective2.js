@@ -66,6 +66,14 @@ export const workProperties = `
                             owl:sameAs ?foundingLocation__dataProviderUrl .
       BIND(STR(?foundingLocationLabel) AS ?foundingLocation__prefLabel)
     }
+    UNION
+    {
+      ?id nobel:nobelPrize ?nobelPrize__id .
+      ?nobelPrize__id rdfs:label ?nobelPrize__prefLabel .
+      BIND(CONCAT("/nobelPrizes/page/", ENCODE_FOR_URI(STR(?nobelPrize__id))) AS ?nobelPrize__dataProviderUrl)
+      ?nobelPrize__id nobel:year ?nobelPrize__prizeYear .
+      FILTER(LANG(?nobelPrize__prefLabel) = 'en')
+    }
 `
 
 

@@ -38,23 +38,41 @@ export const workProperties = `
       BIND(CONCAT("/laureates/page/", REPLACE(STR(?affiliatedLaureate__id), "^.*\\\\/(.+)", "$1")) AS ?affiliatedLaureate__dataProviderUrl)
     }
     # Retrieve the most awarded category of the university.
-    # Currently the actual ?count is incorrect as of result of the duplicate properties.
     UNION 
     {
-   	SELECT ?id (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) {
-          SELECT ?id ?category (count(?category) as ?count) 
-          WHERE 
-          {
-            ?id ^nobel:university ?laureateAward .
-            ?laureateAward nobel:category ?category .  
-          }
-          GROUP BY ?id ?category
-          ORDER BY desc(?count)
-          # Ar šo limit rodās problēmu, ja tiek union izmantots.
-          # LIMIT 1
+      SELECT ?id 
+             (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) 
+        {
+            SELECT ?id 
+                   ?category 
+                   (count(distinct ?category) as ?count) 
+            WHERE 
+            {
+              ?id ^nobel:university ?laureateAward .
+              ?laureateAward nobel:category ?category .  
+            }
+            GROUP BY ?id ?category
         }
     }         
 `;
+
+export const retrieveMostAwaredCategoryQuery = [{
+  sparqlQuery: `
+  SELECT ?id 
+         (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) 
+         (count(distinct ?category) as ?count) 
+  {
+    VALUES ?id { <ID_SET> }
+    ?id ^nobel:university ?laureateAward .
+    ?laureateAward nobel:category ?category .  
+  }
+  GROUP BY ?id ?category
+  ORDER BY DESC(?count)
+  LIMIT 1
+  `
+}]
+
+
 
 export const nobelPrizeSharedBetweenUniversitiesQuery = `
 select 
