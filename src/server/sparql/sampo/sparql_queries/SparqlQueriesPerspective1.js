@@ -77,6 +77,7 @@ select (CONCAT("Prize shared by ", STR(?laureateCount), " laureates") as ?catego
   GROUP BY ?id ?nobelCategory
 }
 GROUP BY ?laureateCount ?nobelCategory
+ORDER BY asc(?laureateCount)
 `;
 
 export const knowledgeGraphMetadataQuery = `
