@@ -9,7 +9,7 @@
     "baseURI": "http://data.nobelprize.org/resource/laureate/",
     "URITemplate": "<BASE_URI><LOCAL_ID>",
     "facetClass": "nobel:Laureate",
-    "frontPageImage": "main_page/works-452x262.jpg",
+    "frontPageImage": "main_page/albert-einstein-3523492_1280.jpg",
     "searchMode": "faceted-search",
     "enableDynamicLanguageChange": false,
     "defaultActiveFacets": [
