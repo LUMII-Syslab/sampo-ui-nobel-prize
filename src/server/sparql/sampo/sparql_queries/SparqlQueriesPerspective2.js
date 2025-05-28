@@ -207,8 +207,14 @@ SELECT distinct (?id as ?category) ?prefLabel ?instanceCount
   }
   FILTER(BOUND(?id))
   {
-    ?id foaf:name ?prefLabel .
+    # Only some laureates have the english tagged value, others have no language tags.  
 
+    ?id foaf:name ?laureate_name_multi .
+    # Try to retrieve the english version of the name only, if it exists.
+    OPTIONAL { ?id foaf:name ?laureate_name_en
+                FILTER(LANG(?laureate_name_en) = 'en') 
+    }
+    BIND(COALESCE(?laureate_name_en, ?laureate_name_multi) AS ?prefLabel)
   }
 }
 ORDER BY desc(?instanceCount)

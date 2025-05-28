@@ -14,6 +14,8 @@ A semantic portal for Nobel prize linked data (https://data.nobelprize.org/) off
 * Must run command `npm run build` to build server and client applications. Must specify as environment variable `API_URL` to the server on which portal will be hosted in this format `hostname[:port]/api/v1` so that client application will send requests to that server. If no URL is provided then client will send requests to URL: `http://localhost:3001/api/v1`.
 * Then command `npm run start-server` can be run with optionally providing the port to which the server must listen through environment variable `SAMPO_UI_EXPRESS_PORT`. If no port is provided, then will listen on port `3001`.
 
+The environment variables can be copied from the [sample.env](./sample.env) file into `.env` file and modified appropriately.
+
 # Sampo-UI
 
 A framework for building user interfaces for semantic portals. 
