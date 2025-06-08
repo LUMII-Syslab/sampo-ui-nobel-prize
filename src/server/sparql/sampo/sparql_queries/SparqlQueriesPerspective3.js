@@ -9,6 +9,10 @@ export const workProperties = `
       BIND(?final_id as ?uri__dataProviderUrl)
       BIND(?final_id as ?uri__prefLabel)
       FILTER(LANG(?prefLabel__prefLabel) = 'en')
+
+      BIND(?id as ?uri__id)
+      BIND(?id as ?uri__dataProviderUrl)
+      BIND(?id as ?uri__prefLabel)
     }
     UNION
     {
@@ -36,39 +40,43 @@ export const workProperties = `
       ?affiliatedLaureate__id rdfs:label ?affiliatedLaureate__prefLabel .
       
       BIND(CONCAT("/laureates/page/", REPLACE(STR(?affiliatedLaureate__id), "^.*\\\\/(.+)", "$1")) AS ?affiliatedLaureate__dataProviderUrl)
-    }
-    # Retrieve the most awarded category of the university.
-    UNION 
-    {
-      SELECT ?id 
-             (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) 
-        {
-            SELECT ?id 
-                   ?category 
-                   (count(distinct ?category) as ?count) 
-            WHERE 
-            {
-              ?id ^nobel:university ?laureateAward .
-              ?laureateAward nobel:category ?category .  
-            }
-            GROUP BY ?id ?category
-        }
-    }         
+    }       
 `;
 
 export const retrieveMostAwaredCategoryQuery = [{
   sparqlQuery: `
-  SELECT ?id 
-         (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) 
-         (count(distinct ?category) as ?count) 
+SELECT ?id
+    (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) 
+{
   {
-    VALUES ?id { <ID_SET> }
-    ?id ^nobel:university ?laureateAward .
-    ?laureateAward nobel:category ?category .  
+    SELECT ?id 
+    	   ?category
+           (count(distinct ?laureateAward) as ?categoryCount) 
+    {
+      VALUES ?id { <ID_SET> }     
+      ?id ^nobel:university ?laureateAward .
+      ?laureateAward nobel:category ?category .  
+    }
+    GROUP BY ?id ?category
   }
-  GROUP BY ?id ?category
-  ORDER BY DESC(?count)
-  LIMIT 1
+  {
+    SELECT ?id (max(?categoryCount) as ?maxCategoryCount) 
+    {
+      SELECT ?id 
+             ?category
+             (count(distinct ?laureateAward) as ?categoryCount) 
+      {
+        VALUES ?id { <ID_SET> }     
+        ?id ^nobel:university ?laureateAward .
+        ?laureateAward nobel:category ?category .  
+      }
+      GROUP BY ?id ?category
+    }
+    GROUP BY ?id
+  }
+  
+  FILTER(?categoryCount = ?maxCategoryCount)
+}
   `
 }]
 

@@ -5,6 +5,8 @@ import Box from '@mui/material/Box'
 import aaltoLogo from '../../../img/logos/Aalto_SCI_EN_13_BLACK_2_cropped.png'
 import hyLogo from '../../../img/logos/university-of-helsinki-logo-transparent-black.png'
 import heldigLogo from '../../../img/logos/heldig-logo-transparent-black.png'
+import universityLvLogo from '../../../img/logos/2024_LU_logotips_ENG_horiz.jpg'
+import lumiiMathInstituteLogo from '../../../img/logos/lumii_logo3a.gif'
 
 /**
  * A component for creating a footer. The logos are imported inside this component.
@@ -97,7 +99,53 @@ const Footer = props => {
         <Box
           component='img'
           src={heldigLogo}
-          alt='Helsinki Centre for Digital Humanities logo'
+          alt='University of Latvia'
+          sx={{
+            height: '100%'
+          }}
+        />
+      </Box>
+      <Box
+        component='a'
+        href='https://www.lu.lv/en/'
+        target='_blank'
+        rel='noopener noreferrer'
+        sx={theme => ({
+          width: 91,
+          height: 40,
+          [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
+            width: 105,
+            height: 46
+          }
+        })}
+      >
+        <Box
+          component='img'
+          src={universityLvLogo}
+          alt='University of Latvia logo'
+          sx={{
+            height: '100%'
+          }}
+        />
+      </Box>
+      <Box
+        component='a'
+        href='https://www.lumii.lv/'
+        target='_blank'
+        rel='noopener noreferrer'
+        sx={theme => ({
+          width: 229,
+          height: 30,
+          [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
+            width: 235,
+            height: 34
+          }
+        })}
+      >
+        <Box
+          component='img'
+          src={lumiiMathInstituteLogo}
+          alt='LUMII logo'
           sx={{
             height: '100%'
           }}
