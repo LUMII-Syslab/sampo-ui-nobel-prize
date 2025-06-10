@@ -330,7 +330,7 @@
         },
         "laureateAwardCount":{
           "label": "Awards count",
-          "description": "The number of nobel prize awards won by the affiliated laureates."
+          "description": "The number of laureates affiliated with the university that have won a Nobel prize."
         },
         "mostAwardsInCategory":{
           "label": "Most awards in category",
