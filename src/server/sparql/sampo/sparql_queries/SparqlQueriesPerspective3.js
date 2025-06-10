@@ -30,7 +30,6 @@ export const workProperties = `
       BIND(STR(?cityLabel) AS ?city__prefLabel)
       FILTER(LANG(?cityLabel) = 'en')              
     }
-    # Interesting might be the difference between what is in the nobel:LaureateAward/university and what is in nobel:Laureate/affiliation 
     UNION
     {
       ?finalId ^nobel:university ?laureateAward .
@@ -38,7 +37,7 @@ export const workProperties = `
       ?affiliatedLaureate__id rdfs:label ?affiliatedLaureate__prefLabel .
       
       BIND(CONCAT("/laureates/page/", REPLACE(STR(?affiliatedLaureate__id), "^.*\\\\/(.+)", "$1")) AS ?affiliatedLaureate__dataProviderUrl)
-    }       
+    }  
 `;
 
 export const retrieveMostAwaredCategoryQuery = [{
@@ -75,6 +74,19 @@ SELECT ?id
   
   FILTER(?categoryCount = ?maxCategoryCount)
 }
+  `
+},
+{
+  sparqlQuery: `
+    SELECT ?id 
+           (count(distinct ?laureateAward) as ?laureateAwardCount)
+    {
+      VALUES ?id { <ID_SET> }     
+      ?id a <FACET_CLASS> ;
+          ^nobel:university ?laureateAward .
+      ?laureateAward dcterms:isPartOf ?nobelPrize .
+    }
+    GROUP BY ?id
   `
 }]
 

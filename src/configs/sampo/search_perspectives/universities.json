@@ -88,18 +88,18 @@
                         ],
                         "layout": {
                             "name": "cose",
-                            "idealEdgeLength": 100,
+                            "idealEdgeLength": 150,
                             "nodeOverlap": 20,
                             "refresh": 20,
                             "fit": true,
-                            "padding": 30,
+                            "padding": 20,
                             "randomize": false,
                             "componentSpacing": 100,
                             "nodeRepulsion": 400000,
                             "edgeElasticity": 100,
                             "nestingFactor": 5,
                             "gravity": 80,
-                            "numIter": 1347,
+                            "numIter": 1400,
                             "initialTemp": 200,
                             "coolingFactor": 0.95,
                             "minTemp": 1
@@ -185,8 +185,18 @@
             "makeLink": true,
             "externalLink": false,
             "sortValues": false,
+            "disableSort": true,
             "numberedList": false,
             "minWidth": 250
+        },
+        {
+            "id": "laureateAwardCount",
+            "valueType": "string",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "minWidth": 20
         },
         {
             "id": "mostAwardsInCategory",
@@ -227,7 +237,7 @@
             "sortByPredicate": "dbo:city/rdfs:label",
             "sortByValueFilter": "FILTER(LANG(?orderBy)='en')"
         },
-        "affiliatedLaureate":{
+        "laureateAwardCount":{
             "sortByPattern": "{SELECT ?id (count(distinct ?laureateAward) as ?orderBy) {?id ^nobel:university ?laureateAward} GROUP BY ?id}"
         }
     }
