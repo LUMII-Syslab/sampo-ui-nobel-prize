@@ -294,7 +294,8 @@ const createNodeObject = (binding, edgePos) => {
     data: {
       id: binding[edgePos]?.value,
       prefLabel: binding[`${edgePos}Label`]?.value,
-      size: binding[`${edgePos}Size`]?.value
+      size: binding[`${edgePos}Size`]?.value,
+      href: binding[`${edgePos}Href`]?.value
     }
   };
 };

@@ -41,8 +41,10 @@ export const getPaginatedResults = async ({
     resultMapper:finalResultMapper = makeObjectList,
     resultMapperConfig:finalResultMapperConfig = null,
     postprocess:finalPostProcess = null,
-    sparqlQuery = []
+    sparqlQuery:configuredSparqlQuery = []
   } = resultClassConfig.paginatedResultsConfig
+
+  let sparqlQuery = [...configuredSparqlQuery];
 
   // Prepend as first the paginated result set query to execute it first to limit results.
   sparqlQuery.unshift({
@@ -129,7 +131,10 @@ export const getPaginatedResults = async ({
         resultFormat
       });
 
-      if (resultFormat !== "json"){
+      if (results.data === null) {
+        return {data: null, sparqlQuery: q}
+      }
+      else if (resultFormat !== "json"){
         return results;
       }else{
         let {data, sparqlQuery:query} = results;
@@ -311,7 +316,10 @@ export const getAllResults = async ({
           resultFormat
         });
   
-        if (resultFormat !== "json"){
+        if (results.data === null) {
+          return {data: null, sparqlQuery: q}
+        }
+        else if (resultFormat !== "json"){
           return results;
         }else{
           let {data, sparqlQuery:query} = results;
@@ -420,10 +428,10 @@ export const getByURI = async ({
     resultMapper:finalResultMapper = makeObjectList,
     resultMapperConfig:finalResultMapperConfig = null,
     postprocess:finalPostProcess = null,
-    sparqlQuery = []
+    sparqlQuery:configuredSparqlQuery = []
   } = resultClassConfig.instanceConfig
 
- 
+  let sparqlQuery = [...configuredSparqlQuery];
 
   // Prepend as first the paginated result set query to execute it first to limit results.
   sparqlQuery.unshift({
@@ -484,7 +492,11 @@ export const getByURI = async ({
         resultFormat
       });
 
-      if (resultFormat !== "json"){
+
+      if (results.data === null) {
+        return {data: null, sparqlQuery: q}
+      }
+      else if (resultFormat !== "json"){
         return results;
       }else{
         let {data, sparqlQuery:query} = results;

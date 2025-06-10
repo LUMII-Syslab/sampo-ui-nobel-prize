@@ -1,22 +1,20 @@
 const perspectiveID = 'universities'
 
 export const workProperties = `
+    BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
+  	FILTER(BOUND(?finalId))
     {
-      ?id   rdfs:label ?prefLabel__id .
+      ?finalId   rdfs:label ?prefLabel__id .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-      BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-      BIND(?final_id as ?uri__id)
-      BIND(?final_id as ?uri__dataProviderUrl)
-      BIND(?final_id as ?uri__prefLabel)
-      FILTER(LANG(?prefLabel__prefLabel) = 'en')
-
-      BIND(?id as ?uri__id)
-      BIND(?id as ?uri__dataProviderUrl)
-      BIND(?id as ?uri__prefLabel)
+      BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?finalId), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+      BIND(?finalId as ?uri__id)
+      BIND(?finalId as ?uri__dataProviderUrl)
+      BIND(?finalId as ?uri__prefLabel)
+      FILTER(LANG(?prefLabel__id) = 'en')
     }
     UNION
     {
-      ?id dbo:country ?country__id .
+      ?finalId dbo:country ?country__id .
       ?country__id rdfs:label ?countryLabel ;
       # Retrieve the url to the dbo:Country in publicly available data provider.
                       owl:sameAs ?country__dataProviderUrl .
@@ -25,7 +23,7 @@ export const workProperties = `
     }                          
     UNION 
     {
-      ?id dbo:city ?city__id .
+      ?finalId dbo:city ?city__id .
       ?city__id rdfs:label ?cityLabel ;
       # Retrieve the url to the dbo:city publicly available data provider.
                       owl:sameAs ?city__dataProviderUrl .
@@ -35,7 +33,7 @@ export const workProperties = `
     # Interesting might be the difference between what is in the nobel:LaureateAward/university and what is in nobel:Laureate/affiliation 
     UNION
     {
-      ?id ^nobel:university ?laureateAward .
+      ?finalId ^nobel:university ?laureateAward .
       ?laureateAward ^nobel:laureateAward ?affiliatedLaureate__id .
       ?affiliatedLaureate__id rdfs:label ?affiliatedLaureate__prefLabel .
       
@@ -46,11 +44,11 @@ export const workProperties = `
 export const retrieveMostAwaredCategoryQuery = [{
   sparqlQuery: `
 SELECT ?id
-    (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) 
+       (REPLACE(STRAFTER(STR(?category), "http://data.nobelprize.org/resource/category/"),"_", " ") AS ?mostAwardsInCategory) 
 {
   {
     SELECT ?id 
-    	   ?category
+    	     ?category
            (count(distinct ?laureateAward) as ?categoryCount) 
     {
       VALUES ?id { <ID_SET> }     
@@ -86,6 +84,8 @@ export const nobelPrizeSharedBetweenUniversitiesQuery = `
 select 
     ?source
     ?target
+    (CONCAT("/${perspectiveID}/page/", REPLACE(STR(?source), "^.*\\\\/(.+)", "$1")) as ?sourceHref)
+    (CONCAT("/${perspectiveID}/page/", REPLACE(STR(?target), "^.*\\\\/(.+)", "$1")) as ?targetHref)
     ?sourceLabel
     ?sourceSize
     ?targetLabel
@@ -141,6 +141,7 @@ SELECT distinct (?id as ?category) ?prefLabel ?instanceCount
   {
     SELECT ?id (count(distinct ?laureateAward) as ?instanceCount)
     {
+      <FILTER>
       VALUES ?facetClass { <FACET_CLASS> }
       ?id a ?facetClass ;
           ^nobel:university ?laureateAward .

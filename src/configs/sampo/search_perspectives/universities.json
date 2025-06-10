@@ -26,7 +26,7 @@
                 "tabIcon": "CalendarViewDay",
                 "propertiesQueryBlock": "workProperties",
                 "sparqlQuery": "retrieveMostAwaredCategoryQuery",
-                "pagesize": 10
+                "pagesize": 50
             },
             "instanceConfig": {
                 "propertiesQueryBlock": "workProperties",
@@ -186,6 +186,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
+            "disableSort":true,
             "minWidth": 250
         },
         {
@@ -194,6 +195,7 @@
             "makeLink": false,
             "externalLink": false,
             "sortValues": false,
+            "disableSort": true,
             "numberedList": false,
             "minWidth": 100
         }
@@ -209,7 +211,18 @@
         },
         "country": {
             "sortByPredicate": "dbo:country/rdfs:label",
-            "sortByValueFilter": "FILTER(LANG(?orderBy)='en')"
+            "sortByValueFilter": "FILTER(LANG(?orderBy)='en')",
+            "containerClass": "ten",
+            "facetType": "list",
+            "filterType": "uriFilter",
+            "predicate": "dbo:country",
+            "facetLabelPredicate": "rdfs:label",
+            "facetValueFilter": "FILTER(isURI(?id))",
+            "facetLabelFilter": "FILTER(LANG(?prefLabel_)='en')",
+            "searchField": true,
+            "sortButton": true,
+            "sortBy": "instanceCount",
+            "sortDirection": "desc"
         },
         "city": {
             "sortByPredicate": "dbo:city/rdfs:label",
