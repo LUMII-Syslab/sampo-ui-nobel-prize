@@ -82,7 +82,7 @@ SELECT ?id
            (count(distinct ?laureateAward) as ?laureateAwardCount)
     {
       VALUES ?id { <ID_SET> }     
-      ?id a <FACET_CLASS> ;
+      ?id a dbo:University ;
           ^nobel:university ?laureateAward .
       ?laureateAward dcterms:isPartOf ?nobelPrize .
     }
