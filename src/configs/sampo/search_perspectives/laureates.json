@@ -193,6 +193,7 @@
             "previewImageHeight":100,
             "externalLink": false,
             "sortValues": false,
+            "disableSort":true,
             "numberedList": false,
             "minWidth": 100
         },
@@ -246,6 +247,7 @@
             "valueType": "object",
             "makeLink": true,
             "externalLink": true,
+            "disableSort":true,
             "sortValues": false,
             "numberedList": false,
             "minWidth": 50
@@ -257,11 +259,12 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
-            "minWidth": 50
+            "minWidth": 30
         },
         {
             "id": "nobelPrize",
             "valueType": "object",
+            "disableSort":true,
             "makeLink": true,
             "externalLink": false,
             "sortValues": true,
@@ -285,6 +288,7 @@
             "filterType": "uriFilter",
             "predicate": "dbo:affiliation",
             "facetLabelPredicate":"rdfs:label",
+            "sortByPredicate": "dbo:affiliation/rdfs:label",
             "searchField": true,
             "sortButton": false,
             "sortBy": "instanceCount",
@@ -300,11 +304,21 @@
             "literal":true,
             "sortButton": false,
             "pieChartButton": true,
+            "sortByPredicate": "foaf:gender",
             "sortBy": "instanceCount",
             "sortDirection": "desc"
         },
         "birthPlaceLabel": {
             "sortByPredicate": "nobel:birthPlaceLabel"
+        },
+        "birthDate":{
+            "sortByPredicate": "dbp:dateOfBirth"
+        },
+        "deathDate":{
+            "sortByPredicate": "dbp:dateOfDeath"
+        },
+        "foundingDate":{
+            "sortByPredicate":"sdo:foundingDate"
         }
     }
 }
