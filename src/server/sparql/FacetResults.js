@@ -140,7 +140,7 @@ export const getPaginatedResults = async ({
         let {data, sparqlQuery:query} = results;
 
         finalResultSet = finalResultSet.concat(data);
-        finalQuery += `\n##___<${endpoint.url}>___\n` + query;
+        finalQuery += `\n##___<${endpoint.url}>___\n` + (idx == 0 ? query : query.replace(/(\r\n|\r|\n)/g, "$1## "));
       }
     }
     catch(e) {
@@ -325,7 +325,7 @@ export const getAllResults = async ({
           let {data, sparqlQuery:query} = results;
   
           finalResultSet = finalResultSet.concat(data);
-          finalQuery += `\n##___<${endpoint.url}>___\n` + query;
+          finalQuery += `\n##___<${endpoint.url}>___\n` + (idx == 0 ? query : query.replace(/(\r\n|\r|\n)/g, "$1## "));
         }
       }
     }
@@ -502,7 +502,7 @@ export const getByURI = async ({
         let {data, sparqlQuery:query} = results;
 
         finalResultSet = finalResultSet.concat(data);
-        finalQuery += `\n##___<${endpoint.url}>___\n` + query;
+        finalQuery += `\n##___<${endpoint.url}>___\n` + (idx == 0 ? query : query.replace(/(\r\n|\r|\n)/g, "$1## "));
       }
     }
     catch(e) {
