@@ -54,7 +54,7 @@
             "tabID": 1,
             "component": "ApexChartsDouble",
             "tabPath": "nobel_prize_laureate_shares",
-            "tabIcon": "ShowChart",
+            "tabIcon": "BarChart",
             "facetClass": "nobelPrizes",
             "upperResultClass":"laureateSharesPerYear",
             "lowerResultClass":"laureateSharesPerCategory",

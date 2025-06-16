@@ -119,7 +119,7 @@
             "tabID": 1,
             "component": "ApexCharts",
             "tabPath": "laureates_per_university",
-            "tabIcon": "ShowChart",
+            "tabIcon": "BarChart",
             "sparqlQuery": "laureatesByAffiliatedUniversityQuery",
             "facetClass": "universities",
             "resultMapper":"mapPieChart",

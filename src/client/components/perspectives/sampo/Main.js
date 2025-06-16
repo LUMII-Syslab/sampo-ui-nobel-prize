@@ -124,8 +124,8 @@ const Main = props => {
         sx={theme => ({
           marginLeft: theme.spacing(1),
           marginRight: theme.spacing(1),
-          [theme.breakpoints.up(800 + getSpacing(theme, 6))]: {
-            width: 800,
+          [theme.breakpoints.up(900 + getSpacing(theme, 6))]: {
+            width: 900,
             marginLeft: 'auto',
             marginRight: 'auto'
           }
@@ -144,7 +144,7 @@ const Main = props => {
           </Typography>
         </Box>
         <Grid
-          container spacing={screenSize === 'sm' ? 2 : 1}
+          container spacing={screenSize === 'sm' ? 3 : 2}
           justifyContent={screenSize === 'xs' || screenSize === 'sm' ? 'center' : 'flex-start'}
         >
           {perspectives.map(perspective => {
