@@ -271,6 +271,16 @@
             "sortBy":"prizeYear",
             "numberedList": false,
             "minWidth": 100
+        },
+        {
+            "id": "otherId",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": false,
+            "numberedList": false,
+            "minWidth": 200,
+            "onlyOnInstancePage": true
         }
     ],
     "facets": {

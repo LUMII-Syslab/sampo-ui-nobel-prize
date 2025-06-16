@@ -74,6 +74,13 @@ export const workProperties = `
       ?nobelPrize__id nobel:year ?nobelPrize__prizeYear .
       FILTER(LANG(?nobelPrize__prefLabel) = 'en')
     }
+    UNION
+    {
+      ?id owl:sameAs ?otherId__id .
+      BIND(STR(?otherId__id) AS ?otherId__prefLabel)
+      BIND(?otherId__id AS ?otherId__dataProviderUrl)
+      FILTER(isIRI(?otherId__id))
+    }
 `
 
 

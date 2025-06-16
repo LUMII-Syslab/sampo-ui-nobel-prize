@@ -335,6 +335,10 @@
         "mostAwardsInCategory":{
           "label": "Most awards in category",
           "description": "The category in which the university has the most nobel prize awards through affiliated laureates."
+        },
+        "otherId":{
+          "label":"URL aliases",
+          "description": "The URL aliases of the laureate in other linked datasets."
         }
       }
     },
