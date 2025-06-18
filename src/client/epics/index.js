@@ -279,10 +279,11 @@ const fetchByURIEpic = (action$, state$) => action$.pipe(
     const params = stateToUrl({
       perspectiveID,
       facets: facetClass == null ? null : state[`${facetClass}Facets`].facets,
+      uri: uri,
       facetClass,
       langTag
     })
-    const requestUrl = `${apiUrl}/${resultClass}/page/${encodeURIComponent(uri)}`
+    const requestUrl = `${apiUrl}/${resultClass}/page`
     return ajax({
       url: requestUrl,
       method: 'POST',

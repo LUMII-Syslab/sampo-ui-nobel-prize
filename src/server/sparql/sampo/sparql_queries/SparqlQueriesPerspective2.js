@@ -89,10 +89,8 @@ export const laureateWikiDataQuery = [{
   SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage) as ?laureateImage__id) {
     VALUES (?id ?wd_id) { <ID_RELATED_SET> }
 
-    ?wd_id wdt:P8024 [] ; # Ar laurēata ārējo datu kopas property cheku strādā diezgan ātri.
-          # Q5 ir Wikidata ID, kas apzīmē personu (Human).
-          wdt:P31 <http://www.wikidata.org/entity/Q5> ;
-          wdt:P18 ?laureateImage .
+    ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ; ## Q5 ir Wikidata ID, kas apzīmē personu (Human).
+           wdt:P18 ?laureateImage .
 
     BIND(CONCAT("https://commons.wikimedia.org/w/thumb.php?f=",
             REPLACE(STR(?laureateImage), "^.+/(.+)$", "$1"),
