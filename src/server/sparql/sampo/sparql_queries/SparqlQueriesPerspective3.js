@@ -20,6 +20,7 @@ export const workProperties = `
                       owl:sameAs ?country__dataProviderUrl .
       BIND(STR(?countryLabel) AS ?country__prefLabel)
       FILTER(LANG(?countryLabel) = 'en')
+      FILTER(isURI(?country__dataProviderUrl))
     }                          
     UNION 
     {
@@ -28,7 +29,8 @@ export const workProperties = `
       # Retrieve the url to the dbo:city publicly available data provider.
                       owl:sameAs ?city__dataProviderUrl .
       BIND(STR(?cityLabel) AS ?city__prefLabel)
-      FILTER(LANG(?cityLabel) = 'en')              
+      FILTER(LANG(?cityLabel) = 'en')
+      FILTER(isURI(?city__dataProviderUrl))        
     }
     UNION
     {
