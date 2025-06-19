@@ -53,7 +53,9 @@ SELECT ?id
            (count(distinct ?laureateAward) as ?categoryCount) 
     {
       VALUES ?id { <ID_SET> }     
-      ?id ^nobel:university ?laureateAward .
+
+      BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
+      ?finalId ^nobel:university ?laureateAward .
       ?laureateAward nobel:category ?category .  
     }
     GROUP BY ?id ?category
@@ -66,7 +68,9 @@ SELECT ?id
              (count(distinct ?laureateAward) as ?categoryCount) 
       {
         VALUES ?id { <ID_SET> }     
-        ?id ^nobel:university ?laureateAward .
+        
+        BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
+        ?finalId ^nobel:university ?laureateAward .
         ?laureateAward nobel:category ?category .  
       }
       GROUP BY ?id ?category
@@ -83,10 +87,11 @@ SELECT ?id
     SELECT ?id 
            (count(distinct ?laureateAward) as ?laureateAwardCount)
     {
-      VALUES ?id { <ID_SET> }     
-      ?id a dbo:University ;
-          ^nobel:university ?laureateAward .
-      ?laureateAward dcterms:isPartOf ?nobelPrize .
+      VALUES ?id { <ID_SET> }
+      
+      BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
+      ?finalId a dbo:University ;
+               ^nobel:university ?laureateAward .
     }
     GROUP BY ?id
   `
@@ -159,7 +164,6 @@ SELECT distinct (?id as ?category) ?prefLabel ?instanceCount
       VALUES ?facetClass { <FACET_CLASS> }
       ?id a ?facetClass ;
           ^nobel:university ?laureateAward .
-      ?laureateAward dcterms:isPartOf ?nobelPrize .
     }
     GROUP BY ?id
     ORDER BY desc(?instanceCount)
