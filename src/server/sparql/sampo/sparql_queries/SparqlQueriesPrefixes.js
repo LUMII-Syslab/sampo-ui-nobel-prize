@@ -9,7 +9,6 @@ export const prefixes = `
   PREFIX text: <http://jena.apache.org/text#>
   PREFIX dcterms: <http://purl.org/dc/terms/>
   PREFIX geo: <http://www.w3.org/2003/01/geo/wgs84_pos#>
-  PREFIX sch: <http://schema.org/>
   PREFIX geosparql: <http://www.opengis.net/ont/geosparql#>
   PREFIX frbroo: <http://erlangen-crm.org/efrbroo/>
   PREFIX mmm-schema: <http://ldf.fi/schema/mmm/>
@@ -24,7 +23,7 @@ export const prefixes = `
   PREFIX nobel: <http://data.nobelprize.org/terms/>
   PREFIX dbo: <http://dbpedia.org/ontology/>
   PREFIX dbp: <http://dbpedia.org/property/>
-  PREFIX sdo: <https://schema.org/>
+  PREFIX sdo: <http://schema.org/>
   PREFIX dblp: <https://dblp.org/rdf/schema#>
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX dcat: <http://www.w3.org/ns/dcat#>

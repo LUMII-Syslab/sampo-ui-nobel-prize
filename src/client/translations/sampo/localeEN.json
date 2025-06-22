@@ -266,6 +266,14 @@
         "motivation":{
           "label":"Award motivation",
           "description":"The motivation for awarding laureate with Nobel prize."
+        },
+        "category":{
+          "label":"Category",
+          "description":"The category in which the laureate has been awarded a Nobel prize."
+        },
+        "wikiPediaUrl":{
+          "label":"Wikipedia page",
+          "description":"The URL of the Wikipedia page of the laureate."
         }
       }
     },

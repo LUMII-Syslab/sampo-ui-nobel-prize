@@ -291,6 +291,16 @@
             "numberedList": false,
             "minWidth": 200,
             "onlyOnInstancePage": true
+        },
+        {
+            "id":"wikiPediaUrl",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": false,
+            "numberedList": false,
+            "minWidth": 200,
+            "onlyOnInstancePage": true
         }
     ],
     "facets": {
@@ -346,6 +356,18 @@
             "filterType": "textFilter",
             "textQueryProvider": "regex",
             "textQueryProperty": "nobel:laureateAward/nobel:motivation"
+        },
+        "category":{
+            "containerClass": "six",
+            "facetType": "list",
+            "filterType": "uriFilter",
+            "predicate": "nobel:nobelPrize/nobel:category",
+            "hideUnknownValue": true,
+            "labelPattern": "BIND(REPLACE(REPLACE(STR(?id), \"^.*\\\\/(.+)\", \"$1\"), \"_\",\" \") AS ?prefLabel_)",
+            "searchField": true,
+            "sortButton": true,
+            "sortBy": "instanceCount",
+            "sortDirection": "desc"
         }
     }
 }

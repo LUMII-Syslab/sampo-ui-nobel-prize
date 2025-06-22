@@ -107,15 +107,29 @@ export const workProperties = `
 
 export const laureateWikiDataQuery = [{
   sparqlQuery: `
-  SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage) as ?laureateImage__id) {
-    VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+  SELECT * {
+    {
+      SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage) as ?laureateImage__id) 
+      {
+        VALUES (?id ?wd_id) { <ID_RELATED_SET> }
 
-    ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ; ## Q5 ir Wikidata ID, kas apzīmē personu (Human).
-           wdt:P18 ?laureateImage .
+        ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ; ## Q5 ir Wikidata ID, kas apzīmē personu (Human).
+              wdt:P18 ?laureateImage .
 
-    BIND(CONCAT("https://commons.wikimedia.org/w/thumb.php?f=",
-            REPLACE(STR(?laureateImage), "^.+/(.+)$", "$1"),
-            "&w=300") AS ?laureateImage__url)
+        BIND(CONCAT("https://commons.wikimedia.org/w/thumb.php?f=",
+                REPLACE(STR(?laureateImage), "^.+/(.+)$", "$1"),
+                "&w=300") AS ?laureateImage__url)
+      }
+    }
+    UNION
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+
+      ?wikiPediaUrl__id sdo:about ?wd_id ;
+                        sdo:isPartOf <https://en.wikipedia.org/>
+      BIND(STR(?wikiPediaUrl__id) as ?wikiPediaUrl__prefLabel)
+      BIND(?wikiPediaUrl__id as ?wikiPediaUrl__dataProviderUrl)
+    }
   }
   `,
   dataSet: 'wikidata',
