@@ -129,6 +129,11 @@ export const laureateWikiDataQuery = [{
                         sdo:isPartOf <https://en.wikipedia.org/>
       BIND(STR(?wikiPediaUrl__id) as ?wikiPediaUrl__prefLabel)
       BIND(?wikiPediaUrl__id as ?wikiPediaUrl__dataProviderUrl)
+
+      ## Add source information
+      BIND(<https://www.wikidata.org> AS ?wikiPediaUrl__source__id)
+      BIND(?wikiPediaUrl__source__id AS ?wikiPediaUrl__source__dataProviderUrl)
+      BIND("Wikidata" as ?wikiPediaUrl__source__prefLabel)
     }
   }
   `,

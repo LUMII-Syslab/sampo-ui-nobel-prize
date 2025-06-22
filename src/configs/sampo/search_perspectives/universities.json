@@ -187,6 +187,7 @@
             "sortValues": false,
             "disableSort": true,
             "numberedList": false,
+            "expandedOnInstancePage":true,
             "minWidth": 250
         },
         {
@@ -205,6 +206,7 @@
             "externalLink": false,
             "sortValues": false,
             "disableSort": true,
+            "expandedOnInstancePage":true,
             "numberedList": false,
             "minWidth": 100
         }
