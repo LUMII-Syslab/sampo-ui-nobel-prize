@@ -257,11 +257,15 @@
         },
         "nobelPrize": {
           "label": "Nobel prizes",
-          "description": "The nobel prizes that the laureate has been awared."
+          "description": "The nobel prizes that the laureate has been awarded."
         },
         "otherId":{
           "label":"URL aliases",
           "description": "The URL aliases of the laureate in other linked datasets."
+        },
+        "motivation":{
+          "label":"Award motivation",
+          "description":"The motivation for awarding laureate with Nobel prize."
         }
       }
     },

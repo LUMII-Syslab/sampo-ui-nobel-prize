@@ -69,10 +69,19 @@ export const workProperties = `
     UNION
     {
       ?id nobel:nobelPrize ?nobelPrize__id .
-      ?nobelPrize__id rdfs:label ?nobelPrize__prefLabel .
+      ?nobelPrize__id rdfs:label ?nobelPrizeLabel .
       BIND(CONCAT("/nobelPrizes/page/", ENCODE_FOR_URI(STR(?nobelPrize__id))) AS ?nobelPrize__dataProviderUrl)
-      ?nobelPrize__id nobel:year ?nobelPrize__prizeYear .
-      FILTER(LANG(?nobelPrize__prefLabel) = 'en')
+      ?nobelPrize__id nobel:year ?nobelPrize__prizeYear ;
+                      dcterms:hasPart ?laureateAwardId .
+      ?laureateAwardId ^nobel:laureateAward ?id .
+      
+      OPTIONAL {
+        ?laureateAwardId nobel:motivation ?nobelPrizeMotivation .
+        FILTER(LANG(?nobelPrizeMotivation) = 'en')
+      }         
+
+      BIND(CONCAT(?nobelPrizeLabel, ' - ', ?nobelPrizeMotivation) as ?nobelPrize__prefLabel)
+      FILTER(LANG(?nobelPrizeLabel) = 'en')
     }
     UNION
     {

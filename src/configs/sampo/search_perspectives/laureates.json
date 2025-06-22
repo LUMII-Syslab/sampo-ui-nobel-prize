@@ -204,7 +204,7 @@
             "externalLink":false,
             "sortValues":false,
             "numberedList":false,
-            "minWidth":150
+            "minWidth":90
         },
         {
             "id": "birthPlaceLabel",
@@ -269,8 +269,9 @@
             "externalLink": false,
             "sortValues": true,
             "sortBy":"prizeYear",
+            "collapsedMaxWords": 15,
             "numberedList": false,
-            "minWidth": 100
+            "minWidth": 150
         },
         {
             "id": "otherId",
@@ -329,6 +330,13 @@
         },
         "foundingDate":{
             "sortByPredicate":"sdo:foundingDate"
+        },
+        "motivation":{
+            "containerClass": "one",
+            "facetType": "text",
+            "filterType": "textFilter",
+            "textQueryProvider": "regex",
+            "textQueryProperty": "nobel:laureateAward/nobel:motivation"
         }
     }
 }
