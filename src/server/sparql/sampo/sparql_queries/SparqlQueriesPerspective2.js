@@ -16,6 +16,13 @@ export const workProperties = `
     }
     UNION
     {
+      ?id a ?type .
+      FILTER(?type != nobel:Laureate)
+
+      BIND(STRAFTER(STR(?type), STR(foaf:)) as ?type__id)
+    }
+    UNION
+    {
       ?id owl:sameAs ?wd_id .
       FILTER(isIRI(?wd_id))
     }
@@ -58,6 +65,11 @@ export const workProperties = `
     {
       # Retrieve properties for the laureate that is a subclass of foaf:Organization.
       ?id sdo:foundingDate ?foundingDate .
+    }
+    UNION
+    {
+      ?id dcterms:created ?foundingDate .
+      FILTER(NOT EXISTS {?id sdo:foundingDate ?foundingDate})
     }
     UNION
     {

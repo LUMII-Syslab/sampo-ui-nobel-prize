@@ -190,9 +190,10 @@
             "id":"laureateImage",
             "valueType":"image",
             "makeLink": false,
-            "previewImageHeight":100,
+            "previewImageHeight":110,
             "externalLink": false,
             "sortValues": false,
+            "onlyForClass":"Person",
             "disableSort":true,
             "numberedList": false,
             "minWidth": 100
@@ -213,6 +214,8 @@
             "externalLink": true,
             "sortValues": false,
             "numberedList": false,
+            "expandedOnInstancePage":true,
+            "onlyForClass":"Person",
             "minWidth": 50
         },
         {
@@ -222,6 +225,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
+            "onlyForClass":"Person",
             "minWidth": 50
         },
         {
@@ -231,6 +235,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
+            "onlyForClass":"Person",
             "minWidth": 50
         },
         {
@@ -240,6 +245,7 @@
             "externalLink": false,
             "sortValues": false,
             "numberedList": false,
+            "onlyForClass":"Organization",
             "minWidth": 50
         },
         {
@@ -249,6 +255,7 @@
             "externalLink": true,
             "disableSort":true,
             "sortValues": false,
+            "onlyForClass":"Organization",
             "numberedList": false,
             "minWidth": 50
         },
@@ -258,6 +265,7 @@
             "makeLink": false,
             "externalLink": false,
             "sortValues": false,
+            "onlyForClass":"Person",
             "numberedList": false,
             "minWidth": 30
         },
@@ -270,6 +278,7 @@
             "sortValues": true,
             "sortBy":"prizeYear",
             "collapsedMaxWords": 15,
+            "expandedOnInstancePage":true,
             "numberedList": false,
             "minWidth": 150
         },
@@ -329,7 +338,7 @@
             "sortByPredicate": "dbp:dateOfDeath"
         },
         "foundingDate":{
-            "sortByPredicate":"sdo:foundingDate"
+            "sortByPredicate":"sdo:foundingDate | dcterms:created"
         },
         "motivation":{
             "containerClass": "one",
