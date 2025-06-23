@@ -60,6 +60,7 @@ export const workProperties = `
                       owl:sameAs ?birthPlaceLabel__dataProviderUrl .
       BIND(STR(?birthPlaceLabel__id) AS ?birthPlaceLabel__prefLabel)
       FILTER(LANG(?birthPlaceLabel__id) = 'en')
+      FILTER(isIRI(?birthPlaceLabel__dataProviderUrl))
     }
     UNION
     {
@@ -160,6 +161,19 @@ export const laureateWikiDataQuery = [{
       BIND(<https://www.wikidata.org> AS ?organizationMotto__source__id)
       BIND(?organizationMotto__source__id AS ?organizationMotto__source__dataProviderUrl)
       BIND("Wikidata" as ?organizationMotto__source__prefLabel)
+    }
+    UNION
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+
+      ?wd_id wdt:P106 ?occupation__id .
+      ?occupation__id rdfs:label ?occupation__prefLabel .
+      FILTER(LANG(?occupation__prefLabel) = "en")
+
+       ## Add source information
+      BIND(<https://www.wikidata.org> AS ?occupation__source__id)
+      BIND(?occupation__source__id AS ?occupation__source__dataProviderUrl)
+      BIND("Wikidata" as ?occupation__source__prefLabel)
     }
   }
   `,

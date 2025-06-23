@@ -322,6 +322,20 @@
             "showSource":true
         },
         {
+            "id": "occupation",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "onlyForClass":"Person",
+            "minWidth": 50,
+            "onlyOnInstancePage": true,
+            "expandedOnInstancePage": true,
+            "sourceExternalLink": true,
+            "showSource": true
+        },
+        {
             "id": "otherId",
             "valueType": "object",
             "makeLink": true,

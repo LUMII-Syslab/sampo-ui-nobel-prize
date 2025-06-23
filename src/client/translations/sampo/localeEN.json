@@ -282,6 +282,10 @@
         "organizationMotto": {
           "label": "Motto",
           "description": "The motto of the laureate, if organization."
+        },
+        "occupation":{
+          "label":"Occupation",
+          "description":"The occupation of the laureate."
         }
       }
     },
