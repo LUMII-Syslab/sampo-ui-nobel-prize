@@ -135,6 +135,32 @@ export const laureateWikiDataQuery = [{
       BIND(?wikiPediaUrl__source__id AS ?wikiPediaUrl__source__dataProviderUrl)
       BIND("Wikidata" as ?wikiPediaUrl__source__prefLabel)
     }
+    UNION 
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+
+      ?wd_id wdt:P512 ?academicDegree__id .
+      ?academicDegree__id rdfs:label ?academicDegree__prefLabel . 
+      FILTER(LANG(?academicDegree__prefLabel) = "en")
+
+       ## Add source information
+      BIND(<https://www.wikidata.org> AS ?academicDegree__source__id)
+      BIND(?academicDegree__source__id AS ?academicDegree__source__dataProviderUrl)
+      BIND("Wikidata" as ?academicDegree__source__prefLabel)
+    }
+    UNION
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+
+      ?wd_id wdt:P1451 ?organizationMotto__id .
+      BIND(STR(?organizationMotto__id) AS ?organizationMotto__prefLabel)
+      FILTER(LANG(?organizationMotto__id) = "en")
+
+       ## Add source information
+      BIND(<https://www.wikidata.org> AS ?organizationMotto__source__id)
+      BIND(?organizationMotto__source__id AS ?organizationMotto__source__dataProviderUrl)
+      BIND("Wikidata" as ?organizationMotto__source__prefLabel)
+    }
   }
   `,
   dataSet: 'wikidata',

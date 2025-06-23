@@ -274,6 +274,14 @@
         "wikiPediaUrl":{
           "label":"Wikipedia page",
           "description":"The URL of the Wikipedia page of the laureate."
+        },
+        "academicDegree":{
+          "label": "Degree",
+          "description": "The academic degree of the laureate."
+        },
+        "organizationMotto": {
+          "label": "Motto",
+          "description": "The motto of the laureate, if organization."
         }
       }
     },
