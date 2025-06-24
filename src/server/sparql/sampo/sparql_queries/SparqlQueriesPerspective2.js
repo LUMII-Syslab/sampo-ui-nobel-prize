@@ -170,10 +170,53 @@ export const laureateWikiDataQuery = [{
       ?occupation__id rdfs:label ?occupation__prefLabel .
       FILTER(LANG(?occupation__prefLabel) = "en")
 
-       ## Add source information
+       # Add source information
       BIND(<https://www.wikidata.org> AS ?occupation__source__id)
       BIND(?occupation__source__id AS ?occupation__source__dataProviderUrl)
       BIND("Wikidata" as ?occupation__source__prefLabel)
+    }
+    UNION
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }  
+      ?wd_id wdt:P2611 ?tedSpeaker__id .
+      
+      # To build URL to corresponding TED speaker page then extract from TED speaker property entity the formatter url property to embed the ted speaker id into the URL.
+      wd:P2611 wdt:P1630 ?urlTemplate .
+      BIND(STR(?tedSpeaker__id) as ?tedSpeaker__prefLabel)
+      BIND(REPLACE(?urlTemplate, "\\\\$1", STR(?tedSpeaker__id)) as ?tedSpeaker__dataProviderUrl)
+
+      ## Add source information
+      BIND(<https://www.wikidata.org> AS ?tedSpeaker__source__id)
+      BIND(?tedSpeaker__source__id AS ?tedSpeaker__source__dataProviderUrl)
+      BIND("Wikidata" as ?tedSpeaker__source__prefLabel)
+    }
+    UNION
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }  
+	    ?wd_id wdt:P10283 ?openAlex__id .
+    
+      wd:P10283 wdt:P1630 ?urlTemplate2 .
+      BIND(STR(?openAlex__id) as ?openAlex__prefLabel)
+      BIND(REPLACE(?urlTemplate2, "\\\\$1", STR(?openAlex__id)) as ?openAlex__dataProviderUrl)
+
+      ## Add source information
+      BIND(<https://www.wikidata.org> AS ?openAlex__source__id)
+      BIND(?tedSpeaker__source__id AS ?openAlex__source__dataProviderUrl)
+      BIND("Wikidata" as ?openAlex__source__prefLabel)
+    }
+    UNION 
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+
+      ?wd_id wdt:P1412 ?knownLanguages__id .
+      ?knownLanguages__id rdfs:label ?knownLanguages__prefLabel
+      
+      FILTER(LANG(?knownLanguages__prefLabel) = "en")
+
+      ## Add source information
+      BIND(<https://www.wikidata.org> AS ?knownLanguages__source__id)
+      BIND(?tedSpeaker__source__id AS ?knownLanguages__source__dataProviderUrl)
+      BIND("Wikidata" as ?knownLanguages__source__prefLabel)
     }
   }
   `,

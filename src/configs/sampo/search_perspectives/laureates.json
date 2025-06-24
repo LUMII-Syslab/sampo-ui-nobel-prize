@@ -331,7 +331,19 @@
             "onlyForClass":"Person",
             "minWidth": 50,
             "onlyOnInstancePage": true,
-            "expandedOnInstancePage": true,
+            "sourceExternalLink": true,
+            "showSource": true
+        },
+        {
+            "id": "knownLanguages",
+            "valueType": "object",
+            "makeLink": false,
+            "externalLink": false,
+            "sortValues": false,
+            "numberedList": false,
+            "onlyForClass":"Person",
+            "minWidth": 100,
+            "onlyOnInstancePage": true,
             "sourceExternalLink": true,
             "showSource": true
         },
@@ -344,6 +356,32 @@
             "numberedList": false,
             "minWidth": 200,
             "onlyOnInstancePage": true
+        },
+        {
+            "id": "tedSpeaker",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": false,
+            "numberedList": false,
+            "onlyForClass":"Person",
+            "minWidth": 100,
+            "onlyOnInstancePage": true,
+            "sourceExternalLink": true,
+            "showSource": true
+        },
+        {
+            "id": "openAlex",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": false,
+            "numberedList": false,
+            "onlyForClass":"Person",
+            "minWidth": 100,
+            "onlyOnInstancePage": true,
+            "sourceExternalLink": true,
+            "showSource": true
         }
     ],
     "facets": {

@@ -286,6 +286,18 @@
         "occupation":{
           "label":"Occupation",
           "description":"The occupation of the laureate."
+        },
+        "tedSpeaker":{
+          "label":"TED speaker",
+          "description":"If the laureate has given a TED talk, then provides link to the laureate TED talks."
+        },
+        "openAlex":{
+          "label":"OpenAlex profile identifier",
+          "description":"If the laureate has OpenAlex profile, then provides link to the OpenAlex profile."
+        },
+        "knownLanguages":{
+          "label":"Known languages",
+          "description":"The languages that the laureate is known to speak or use."
         }
       }
     },

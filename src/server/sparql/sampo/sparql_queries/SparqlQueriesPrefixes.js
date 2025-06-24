@@ -28,4 +28,5 @@ export const prefixes = `
   PREFIX wdt: <http://www.wikidata.org/prop/direct/>
   PREFIX dcat: <http://www.w3.org/ns/dcat#>
   PREFIX prov: <http://www.w3.org/ns/prov#>
+  PREFIX wd: <http://www.wikidata.org/entity/>
 `
