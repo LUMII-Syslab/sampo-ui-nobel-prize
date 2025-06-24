@@ -274,7 +274,10 @@ export const laureateEntityWikiDataQuery = [{
 
     OPTIONAL {
       select ?publication__id (count(?citation) as ?citationCountComp) {
-        ?publication__id dblp:omid ?omid .
+        VALUES (?id ?dblp_creator_id) { <ID_RELATED_SET> } 	 
+        
+        ?publication__id  dblp:createdBy  ?dblp_creator_id .
+        ?publication__id  dblp:omid ?omid .
         ?citation rdf:type cito:Citation .
           ?citation cito:hasCitedEntity ?omid .
         }
