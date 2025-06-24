@@ -2,6 +2,7 @@ import React from 'react'
 import makeStyles from '@mui/styles/makeStyles'
 import { SRLWrapper, useLightbox } from 'simple-react-lightbox'
 import Button from '@mui/material/Button'
+import ObjectListItemSources from '../facet_results/ObjectListItemSources'
 
 const useStyles = makeStyles({
   previewImage: {
@@ -57,6 +58,12 @@ const ImageGallerySRL = props => {
         />
       </Button>
       <SRLWrapper options={srlOptions} elements={images} />
+      {props.showSource && (Array.isArray(data) ? data[0] : data).source &&
+                        <ObjectListItemSources
+                          data={(Array.isArray(data) ? data[0] : data).source}
+                          shortenLabel={props.shortenLabel}
+                          externalLink={props.sourceExternalLink}
+                        />}
     </>
   )
 }

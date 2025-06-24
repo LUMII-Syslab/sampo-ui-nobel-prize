@@ -142,9 +142,10 @@ class InstancePageTable extends React.Component {
                   id, valueType, makeLink, externalLink, sortValues, sortBy, sortByConvertDataTypeTo, numberedList, minWidth,
                   linkAsButton, collapsedMaxWords, showSource, sourceExternalLink, renderAsHTML, HTMLParserTask
                 } = row
-                let { previewImageHeight } = row
+
+                let previewImageHeight = row.previewImageHeightInstancePage ? row.previewImageHeightInstancePage : row.previewImageHeight;
                 if (screenSize === 'xs' || screenSize === 'sm') {
-                  previewImageHeight = 50
+                  previewImageHeight = 60
                 }
                 const expanded = this.state.expandedRows.has(row.id)
                 return (

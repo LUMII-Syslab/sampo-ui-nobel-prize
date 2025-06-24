@@ -119,6 +119,9 @@ export const getPaginatedResults = async ({
     // console.log(endpoint.prefixes + q)
     try{
       q = templateFiller(finalResultSet, q, templateFillerConfig);
+      // If no query was returned to be executed, then skip.
+      if (q === null)
+          continue;
 
       let results = await runSelectQuery({
         query: perspectiveEndpoint.prefixes + q,
@@ -281,6 +284,9 @@ export const getAllResults = async ({
     //console.log(endpoint.prefixes + q)
     try{
       q = templateFiller(finalResultSet, q, templateFillerConfig);
+      // If no query was returned to be executed, then skip.
+      if (q === null)
+          continue;
 
       if (useNetworkAPI) {
         let results = runNetworkQuery({
@@ -480,6 +486,9 @@ export const getByURI = async ({
     // console.log(endpoint.prefixes + q)
     try{
       q = templateFiller(finalResultSet, q, templateFillerConfig);
+      // If no query was returned to be executed, then skip.
+      if (q === null)
+          continue;
 
       let results = await runSelectQuery({
         query: perspectiveEndpoint.prefixes + q,

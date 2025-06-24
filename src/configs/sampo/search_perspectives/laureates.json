@@ -194,11 +194,14 @@
             "valueType":"image",
             "makeLink": false,
             "previewImageHeight":110,
+            "previewImageHeightInstancePage": 150,
             "externalLink": false,
             "sortValues": false,
             "onlyForClass":"Person",
             "disableSort":true,
             "numberedList": false,
+            "showSource":true,
+            "sourceExternalLink":true,
             "minWidth": 100
         },
         {
@@ -366,6 +369,8 @@
             "makeLink": true,
             "externalLink": true,
             "numberedList": true,
+            "sortValues": false,
+            "onlyForClass":"Person",
             "minWidth": 200,
             "onlyOnInstancePage": true,
             "sourceExternalLink": true,

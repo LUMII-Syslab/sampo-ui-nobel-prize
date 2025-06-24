@@ -6,6 +6,7 @@ import StringList from './StringList'
 import SimpleReactLightbox from 'simple-react-lightbox'
 import ImageGallerySRL from '../main_layout/ImageGallerySRL'
 
+
 const ResultTableCell = props => {
   const {
     data, tableData, valueType, makeLink, externalLink, sortValues, sortBy, sortByConvertDataTypeTo,
@@ -64,7 +65,11 @@ const ResultTableCell = props => {
       break
     case 'image':
       cellContent = data && data !== '-'
-        ? <SimpleReactLightbox><ImageGallerySRL data={data} previewImageHeight={previewImageHeight} /></SimpleReactLightbox>
+        ? <SimpleReactLightbox><ImageGallerySRL data={data} 
+                                              previewImageHeight={previewImageHeight} 
+                                                shortenLabel={shortenLabel} 
+                                                showSource={showSource} 
+                                                sourceExternalLink={sourceExternalLink} /></SimpleReactLightbox>
         : ''
   }
   if (container === 'div') {

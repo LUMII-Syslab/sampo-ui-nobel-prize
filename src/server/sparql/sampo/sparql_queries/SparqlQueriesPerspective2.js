@@ -107,7 +107,13 @@ export const workProperties = `
 
 const laureatePortaitSparqlQuery = `
   {
-    SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage) as ?laureateImage__id) 
+    SELECT ?id 
+           ?wd_id 
+           ?laureateImage__url 
+           (STR(?laureateImage) as ?laureateImage__id)
+           ?laureateImage__source__id
+           ?laureateImage__source__dataProviderUrl
+           ?laureateImage__source__prefLabel
     {
       VALUES (?id ?wd_id) { <ID_RELATED_SET> }
 
@@ -117,6 +123,10 @@ const laureatePortaitSparqlQuery = `
       BIND(CONCAT("https://commons.wikimedia.org/w/thumb.php?f=",
               REPLACE(STR(?laureateImage), "^.+/(.+)$", "$1"),
               "&w=300") AS ?laureateImage__url)
+
+      BIND(<https://www.wikidata.org> AS ?laureateImage__source__id)
+      BIND(?laureateImage__source__id AS ?laureateImage__source__dataProviderUrl)
+      BIND("Wikidata" as ?laureateImage__source__prefLabel)
     }
   }
 `
@@ -204,7 +214,7 @@ export const laureateEntityWikiDataQuery = [{
 
       ## Add source information
       BIND(<https://www.wikidata.org> AS ?openAlex__source__id)
-      BIND(?tedSpeaker__source__id AS ?openAlex__source__dataProviderUrl)
+      BIND(?openAlex__source__id AS ?openAlex__source__dataProviderUrl)
       BIND("Wikidata" as ?openAlex__source__prefLabel)
     }
     UNION 
@@ -232,7 +242,7 @@ export const laureateEntityWikiDataQuery = [{
   }
   `,
   dataSet: 'wikidata',
-  templateFillerConfig: { relatedProperty: "wd_id" }
+  templateFillerConfig: { relatedProperty: "wd_id", skipWithNoData: true }
 },
 {
   sparqlQuery: `
@@ -277,7 +287,7 @@ export const laureateEntityWikiDataQuery = [{
   LIMIT 10
 `,
   dataSet: 'dblp',
-  templateFillerConfig: { relatedProperty: "laureate_dblp_id" } 
+  templateFillerConfig: { relatedProperty: "laureate_dblp_id", skipWithNoData: true} 
 }]
 
 
@@ -285,7 +295,7 @@ export const laureateWikiDataQuery = [
   {
     sparqlQuery: `SELECT * ${laureatePortaitSparqlQuery}`,
     dataSet: 'wikidata',
-    templateFillerConfig: { relatedProperty: "wd_id" }
+    templateFillerConfig: { relatedProperty: "wd_id", skipWithNoData: true}
   }
 ];
 
