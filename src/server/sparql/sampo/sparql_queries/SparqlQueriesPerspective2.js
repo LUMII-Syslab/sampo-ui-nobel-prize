@@ -105,23 +105,26 @@ export const workProperties = `
     }
 `
 
+const laureatePortaitSparqlQuery = `
+  {
+    SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage) as ?laureateImage__id) 
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
 
-export const laureateWikiDataQuery = [{
+      ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ; ## Q5 ir Wikidata ID, kas apzīmē personu (Human).
+            wdt:P18 ?laureateImage .
+
+      BIND(CONCAT("https://commons.wikimedia.org/w/thumb.php?f=",
+              REPLACE(STR(?laureateImage), "^.+/(.+)$", "$1"),
+              "&w=300") AS ?laureateImage__url)
+    }
+  }
+`
+
+export const laureateEntityWikiDataQuery = [{
   sparqlQuery: `
   SELECT * {
-    {
-      SELECT ?id ?wd_id ?laureateImage__url (STR(?laureateImage) as ?laureateImage__id) 
-      {
-        VALUES (?id ?wd_id) { <ID_RELATED_SET> }
-
-        ?wd_id wdt:P31 <http://www.wikidata.org/entity/Q5> ; ## Q5 ir Wikidata ID, kas apzīmē personu (Human).
-              wdt:P18 ?laureateImage .
-
-        BIND(CONCAT("https://commons.wikimedia.org/w/thumb.php?f=",
-                REPLACE(STR(?laureateImage), "^.+/(.+)$", "$1"),
-                "&w=300") AS ?laureateImage__url)
-      }
-    }
+    ${laureatePortaitSparqlQuery}
     UNION
     {
       VALUES (?id ?wd_id) { <ID_RELATED_SET> }
@@ -215,14 +218,76 @@ export const laureateWikiDataQuery = [{
 
       ## Add source information
       BIND(<https://www.wikidata.org> AS ?knownLanguages__source__id)
-      BIND(?tedSpeaker__source__id AS ?knownLanguages__source__dataProviderUrl)
+      BIND(?knownLanguages__source__id AS ?knownLanguages__source__dataProviderUrl)
       BIND("Wikidata" as ?knownLanguages__source__prefLabel)
+    }
+    UNION 
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+      ?wd_id wdt:P2456 ?dblp__id .
+    
+      wd:P2456 wdt:P1921 ?dblp_resource_url_template .
+      BIND(REPLACE(?dblp_resource_url_template, "\\\\$1", STR(?dblp__id)) as ?laureate_dblp_id)
     }
   }
   `,
   dataSet: 'wikidata',
   templateFillerConfig: { relatedProperty: "wd_id" }
+},
+{
+  sparqlQuery: `
+  SELECT ?id 
+         ?dblp_creator_id 
+         ?publication__id 
+         ?publication__prefLabel 
+         ?publication__dataProviderUrl
+         ?publication__source__id
+         ?publication__source__dataProviderUrl
+         ?publication__source__prefLabel
+  {
+    VALUES (?id ?dblp_creator_id) { <ID_RELATED_SET> }  
+
+    ?dblp_creator_id ^dblp:createdBy ?publication__id .
+    ?publication__id rdfs:label ?publ_label .
+    
+    OPTIONAL {
+      ?publication__id rdfs:label ?publ_label_en .
+      FILTER(LANG(?publ_label_en) = "en")
+    }
+
+    BIND(COALESCE(?publ_label_en, ?publ_label) as ?publicationLabel)
+    BIND(?publication__id AS ?publication__dataProviderUrl)
+
+    BIND(<https://dblp.org/> AS ?publication__source__id)
+    BIND(?publication__source__id AS ?publication__source__dataProviderUrl)
+    BIND("DBLP - Computer Science bibliography" as ?publication__source__prefLabel)
+
+    OPTIONAL {
+      select ?publication__id (count(?citation) as ?citationCountComp) {
+        ?publication__id dblp:omid ?omid .
+        ?citation rdf:type cito:Citation .
+          ?citation cito:hasCitedEntity ?omid .
+        }
+        GROUP BY ?publication__id
+    }
+    BIND(COALESCE(?citationCountComp, 0) as ?publication__citationCount)
+    BIND(IF(?publication__citationCount = 0, ?publicationLabel, CONCAT(?publicationLabel, ": (", STR(?publication__citationCount), " citations)")) as ?publication__prefLabel)
+  }
+  ORDER BY desc(?publication__citationCount)
+  LIMIT 10
+`,
+  dataSet: 'dblp',
+  templateFillerConfig: { relatedProperty: "laureate_dblp_id" } 
 }]
+
+
+export const laureateWikiDataQuery = [
+  {
+    sparqlQuery: `SELECT * ${laureatePortaitSparqlQuery}`,
+    dataSet: 'wikidata',
+    templateFillerConfig: { relatedProperty: "wd_id" }
+  }
+];
 
 export const laureatesByBirthCountryQuery = `
     SELECT ?prefLabel 

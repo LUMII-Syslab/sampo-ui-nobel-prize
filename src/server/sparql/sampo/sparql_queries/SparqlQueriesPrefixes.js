@@ -29,4 +29,5 @@ export const prefixes = `
   PREFIX dcat: <http://www.w3.org/ns/dcat#>
   PREFIX prov: <http://www.w3.org/ns/prov#>
   PREFIX wd: <http://www.wikidata.org/entity/>
+  PREFIX cito: <http://purl.org/spar/cito/>
 `

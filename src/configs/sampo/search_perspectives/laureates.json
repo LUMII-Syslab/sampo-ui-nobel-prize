@@ -32,7 +32,7 @@
             },
             "instanceConfig": {
                 "propertiesQueryBlock": "workProperties",
-                "sparqlQuery":"laureateWikiDataQuery",
+                "sparqlQuery":"laureateEntityWikiDataQuery",
                 "instancePageResultClasses": {
                     "instancePageTable": {
                         "tabID": 0,
@@ -155,6 +155,9 @@
     "datasets":{
         "wikidata":{
             "endpoint":{"url": "https://query.wikidata.org/sparql"}
+        },
+        "dblp":{
+            "endpoint":{"url": "https://sparql.dblp.org/sparql"}
         }
     },
     "properties": [
@@ -356,6 +359,17 @@
             "numberedList": false,
             "minWidth": 200,
             "onlyOnInstancePage": true
+        },
+        {
+            "id": "publication",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "numberedList": true,
+            "minWidth": 200,
+            "onlyOnInstancePage": true,
+            "sourceExternalLink": true,
+            "showSource": true
         },
         {
             "id": "tedSpeaker",

@@ -297,7 +297,11 @@
         },
         "knownLanguages":{
           "label":"Known languages",
-          "description":"The languages that the laureate is known to speak or use."
+          "description":"The languages that the laureate is known to use."
+        },
+        "publication":{
+          "label":"DBLP publications",
+          "description":"Top 10 publications that the laureate has authored or edited in the computer science domain based on citation count."
         }
       }
     },
