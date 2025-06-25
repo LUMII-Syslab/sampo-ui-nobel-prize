@@ -18,6 +18,7 @@ import TopBarLanguageButton from './TopBarLanguageButton'
 import Divider from '@mui/material/Divider'
 import { has } from 'lodash'
 import secoLogo from '../../img/logos/seco-logo-48x50.png'
+import lumiiLogo from '../../img/logos/lumii_logo_sigma_60_black_background.png'
 
 /**
  * Responsive app bar with a search field, perspective links, info links and a language
@@ -178,11 +179,6 @@ const TopBar = props => {
       >
         {perspectives.map(perspective => perspective.hideTopPerspectiveButton ? null : renderMobileMenuItem(perspective))}
         <Divider />
-        {renderMobileMenuItem({
-          id: 'feedback',
-          externalUrl: props.layoutConfig.topBar.feedbackLink,
-          label: intl.get('topBar.feedback')
-        })}
         {infoDropdown.map(item => renderInfoItem(item))}
         {topBar.externalInstructions && renderMobileMenuItem({
           id: 'instructions',
@@ -303,11 +299,6 @@ const TopBar = props => {
                 borderLeft: '2px solid white'
               })}
             />
-            {renderDesktopTopMenuItem({
-              id: 'feedback',
-              externalUrl: props.layoutConfig.topBar.feedbackLink,
-              label: intl.get('topBar.feedback')
-            })}
             <TopBarInfoButton rootUrl={props.rootUrl} layoutConfig={layoutConfig} />
             {topBar.externalInstructions && renderDesktopTopMenuItem({
               id: 'instructions',
@@ -330,6 +321,32 @@ const TopBar = props => {
                 loadLocales={props.loadLocales}
                 location={props.location}
               />}
+          </Box>
+          <Box
+            component='a'
+            href='https://lumii.lv/'
+            target='_blank'
+            rel='noopener noreferrer'
+            sx={theme => ({
+              marginLeft: theme.spacing(1),
+              [theme.breakpoints.down(props.layoutConfig.topBar.mobileMenuBreakpoint)]: {
+                display: 'none'
+              }
+            })}
+          >
+            <Button aria-label='Link to LUMII homepage'>
+              <Box
+                component='img'
+                src={lumiiLogo}
+                alt='LUMII logo'
+                sx={theme => ({
+                  height: 30,
+                  [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
+                    height: 60
+                  }
+                })}
+              />
+            </Button>
           </Box>
           <Box
             component='a'

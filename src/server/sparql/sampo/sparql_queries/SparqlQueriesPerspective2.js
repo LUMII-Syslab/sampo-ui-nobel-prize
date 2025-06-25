@@ -78,6 +78,7 @@ export const workProperties = `
       ?foundingLocation__id rdfs:label ?foundingLocationLabel ;
                             owl:sameAs ?foundingLocation__dataProviderUrl .
       BIND(STR(?foundingLocationLabel) AS ?foundingLocation__prefLabel)
+      FILTER(isIRI(?foundingLocation__dataProviderUrl))
     }
     UNION
     {
