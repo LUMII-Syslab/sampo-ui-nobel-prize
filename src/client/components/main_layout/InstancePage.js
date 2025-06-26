@@ -37,7 +37,7 @@ class InstancePage extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      localID: null
+      localID: this.getLocalID()
     }
   }
 
@@ -146,8 +146,8 @@ class InstancePage extends React.Component {
           {hasTableData &&
             <>
               <Route
-                exact path={`${rootUrl}/${resultClass}/page/${this.state.localID}`}
-                render={routeProps =>
+                exact path={`${rootUrl}/${resultClass}/page/:id`}
+                render={routeProps => 
                   <Redirect
                     to={{
                       pathname: `${rootUrl}/${resultClass}/page/${this.state.localID}/${defaultInstancePageTab}`,
@@ -164,7 +164,7 @@ class InstancePage extends React.Component {
                   return null
                 }
                 const { tabPath } = resultClassConfig
-                const path = `${rootUrl}/${resultClass}/page/${this.state.localID}/${tabPath}`
+                const path = `${rootUrl}/${resultClass}/page/:id/${tabPath}`
                 return (
                   <ResultClassRoute
                     key={instancePageResultClass}
