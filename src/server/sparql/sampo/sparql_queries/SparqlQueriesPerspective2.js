@@ -171,10 +171,44 @@ export const laureateEntityWikiDataQuery = [{
       BIND(STR(?organizationMotto__id) AS ?organizationMotto__prefLabel)
       FILTER(LANG(?organizationMotto__id) = "en")
 
-       ## Add source information
+      ## Add source information
       BIND(<https://www.wikidata.org> AS ?organizationMotto__source__id)
       BIND(?organizationMotto__source__id AS ?organizationMotto__source__dataProviderUrl)
       BIND("Wikidata" as ?organizationMotto__source__prefLabel)
+    }
+    UNION
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+      
+      ?wd_id wdt:P166 ?otherAwards__id .
+      ?otherAwards__id wdt:P279 ?superclass ;
+                       rdfs:label ?otherAwards__prefLabel .
+      
+      BIND(?otherAwards__id as ?otherAwards__dataProviderUrl)
+      # Nobel prizes (wd:Q7191) are listed in a separate field, so we exclude them.
+      FILTER(?superclass != wd:Q7191 && LANG(?otherAwards__prefLabel) = "en")
+
+      ## Add source information
+      BIND(<https://www.wikidata.org> AS ?otherAwards__source__id)
+      BIND(?otherAwards__source__id AS ?otherAwards__source__dataProviderUrl)
+      BIND("Wikidata" as ?otherAwards__source__prefLabel)
+    }
+    UNION
+    {
+      VALUES (?id ?wd_id) { <ID_RELATED_SET> }
+
+      ?wd_id wdt:P800 ?notableWorks__id .
+      ?notableWorks__id rdfs:label ?notableWorksLabel .
+      ?notableWorks__id sdo:description ?notableWorksDescription .
+      
+      BIND(?notableWorks__id as ?notableWorks__dataProviderUrl)
+      BIND(CONCAT(?notableWorksLabel, " - ", ?notableWorksDescription) as ?notableWorks__prefLabel) 
+      FILTER(LANG(?notableWorksLabel) = "en" && LANG(?notableWorksDescription) = "en")
+
+      ## Add source information
+      BIND(<https://www.wikidata.org> AS ?notableWorks__source__id)
+      BIND(?notableWorks__source__id AS ?notableWorks__source__dataProviderUrl)
+      BIND("Wikidata" as ?notableWorks__source__prefLabel)
     }
     UNION
     {

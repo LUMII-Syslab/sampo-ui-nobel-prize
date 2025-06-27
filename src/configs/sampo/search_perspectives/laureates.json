@@ -364,6 +364,19 @@
             "onlyOnInstancePage": true
         },
         {
+            "id": "notableWorks",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": false,
+            "numberedList": false,
+            "onlyForClass":"Person",
+            "minWidth": 100,
+            "onlyOnInstancePage": true,
+            "sourceExternalLink": true,
+            "showSource": true
+        },
+        {
             "id": "publication",
             "valueType": "object",
             "makeLink": true,
@@ -372,6 +385,19 @@
             "sortValues": false,
             "onlyForClass":"Person",
             "minWidth": 200,
+            "onlyOnInstancePage": true,
+            "sourceExternalLink": true,
+            "showSource": true
+        },
+        {
+            "id": "otherAwards",
+            "valueType": "object",
+            "makeLink": true,
+            "externalLink": true,
+            "sortValues": false,
+            "numberedList": false,
+            "onlyForClass":"Person",
+            "minWidth": 100,
             "onlyOnInstancePage": true,
             "sourceExternalLink": true,
             "showSource": true

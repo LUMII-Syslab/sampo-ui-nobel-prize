@@ -291,6 +291,14 @@
           "label":"TED speaker",
           "description":"If the laureate has given a TED talk, then provides link to the laureate TED talks."
         },
+        "notableWorks":{
+          "label":"Notable works",
+          "description":"Important works of the laureate."
+        },
+        "otherAwards":{
+          "label":"Other awards",
+          "description":"Awards that he laureate has received that are not Nobel prizes."
+        },
         "openAlex":{
           "label":"OpenAlex profile identifier",
           "description":"If the laureate has OpenAlex profile, then provides link to the OpenAlex profile."
