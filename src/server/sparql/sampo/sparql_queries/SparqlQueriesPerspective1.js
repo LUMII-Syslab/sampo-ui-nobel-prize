@@ -22,10 +22,9 @@ export const workProperties = `
       ?laureateAward nobel:laureate ?laureate__id ;
                      nobel:sortOrder ?laureate__sortOrder ;
                      nobel:share     ?laureate__share .
-      # TODO: Potentially limit it to user locale.
+
       ?laureate__id rdfs:label ?laureateLabel .
 
-      # TODO: Is it possible that some laureateAward will not have motivation predicate set?
       OPTIONAL {
         ?laureateAward nobel:motivation ?laureate__motivation . 
         FILTER(LANG(?laureate__motivation) = 'en')
