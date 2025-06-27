@@ -334,15 +334,20 @@ const TopBar = props => {
               }
             })}
           >
-            <Button aria-label='Link to LUMII homepage'>
+            <Button aria-label='Link to LUMII homepage'
+              sx={{
+                width: '100%',
+                minWidth: 'unset' // To ensure that the button is as wide as the logo.
+              }}
+            >
               <Box
                 component='img'
                 src={lumiiLogo}
                 alt='LUMII logo'
                 sx={theme => ({
-                  height: 30,
+                  height: 28,
                   [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
-                    height: 60
+                    height: 50
                   }
                 })}
               />
@@ -360,7 +365,11 @@ const TopBar = props => {
               }
             })}
           >
-            <Button aria-label='link to Semantic Computing research group homepage'>
+            <Button aria-label='link to Semantic Computing research group homepage'
+              sx={{
+                width: '100%',
+                minWidth: 'unset' // To ensure that the button is as wide as the logo.
+              }}>
               <Box
                 component='img'
                 src={secoLogo}

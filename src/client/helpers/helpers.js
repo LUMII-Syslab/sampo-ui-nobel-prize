@@ -179,9 +179,8 @@ export const generateLabelForMissingValue = ({ perspective, property }) => {
     intl.get('facetBar.defaultMissingValueLabel') || 'Unknown'
 }
 
-// Kods pieņem, ka local_id vienmēr sevī neietvers "/" simbolus.
-export const getLocalIDFromAppLocation = ({ location, perspectiveConfig }) => {
-  const locationArr = location.pathname.split('/')
+export const getLocalIdFromAppPathname = ({ pathName, perspectiveConfig }) => {
+  const locationArr = pathName.split('/')
   let localID = locationArr.pop()
   const defaultTab = perspectiveConfig.defaultTab || 'table'
   const defaultInstancePageTab = perspectiveConfig.defaultInstancePageTab || 'table'
@@ -194,6 +193,11 @@ export const getLocalIDFromAppLocation = ({ location, perspectiveConfig }) => {
     }
   })
   return localID
+}
+
+// Kods pieņem, ka local_id vienmēr sevī neietvers "/" simbolus.
+export const getLocalIDFromAppLocation = ({ location, perspectiveConfig }) => {
+  return getLocalIdFromAppPathname({pathName: location.pathName, perspectiveConfig});
 }
 
 export const createURIfromLocalID = ({ localID, baseURI, URITemplate, localIDAsURI }) => {

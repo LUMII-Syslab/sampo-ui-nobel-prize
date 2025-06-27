@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 import PerspectiveTabs from './PerspectiveTabs'
 import ResultClassRoute from '../facet_results/ResultClassRoute'
-import { getLocalIDFromAppLocation, createURIfromLocalID } from '../../helpers/helpers'
+import { getLocalIdFromAppPathname, createURIfromLocalID } from '../../helpers/helpers'
 import { Route, Redirect } from 'react-router-dom'
 import { has } from 'lodash'
 
@@ -58,8 +58,8 @@ class InstancePage extends React.Component {
   }
 
   getLocalID = () => {
-    return getLocalIDFromAppLocation({
-      location: this.props.location,
+    return getLocalIdFromAppPathname({
+      pathName: window.location.pathname,
       perspectiveConfig: this.props.perspectiveConfig
     })
   }

@@ -1,20 +1,18 @@
 const perspectiveID = 'universities'
 
 export const workProperties = `
-    BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
-  	FILTER(BOUND(?finalId))
     {
-      ?finalId   rdfs:label ?prefLabel__id .
+      ?id   rdfs:label ?prefLabel__id .
       BIND(?prefLabel__id AS ?prefLabel__prefLabel)
-      BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?finalId), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
-      BIND(?finalId as ?uri__id)
-      BIND(?finalId as ?uri__dataProviderUrl)
-      BIND(?finalId as ?uri__prefLabel)
+      BIND(CONCAT("/${perspectiveID}/page/", REPLACE(STR(?id), "^.*\\\\/(.+)", "$1")) AS ?prefLabel__dataProviderUrl)
+      BIND(?id as ?uri__id)
+      BIND(?id as ?uri__dataProviderUrl)
+      BIND(?id as ?uri__prefLabel)
       FILTER(LANG(?prefLabel__id) = 'en')
     }
     UNION
     {
-      ?finalId dbo:country ?country__id .
+      ?id dbo:country ?country__id .
       ?country__id rdfs:label ?countryLabel ;
       # Retrieve the url to the dbo:Country in publicly available data provider.
                       owl:sameAs ?country__dataProviderUrl .
@@ -24,7 +22,7 @@ export const workProperties = `
     }                          
     UNION 
     {
-      ?finalId dbo:city ?city__id .
+      ?id dbo:city ?city__id .
       ?city__id rdfs:label ?cityLabel ;
       # Retrieve the url to the dbo:city publicly available data provider.
                       owl:sameAs ?city__dataProviderUrl .
@@ -34,7 +32,7 @@ export const workProperties = `
     }
     UNION
     {
-      ?finalId ^nobel:university ?laureateAward .
+      ?id ^nobel:university ?laureateAward .
       ?laureateAward ^nobel:laureateAward ?affiliatedLaureate__id .
       ?affiliatedLaureate__id rdfs:label ?affiliatedLaureate__prefLabel .
       
@@ -54,8 +52,7 @@ SELECT ?id
     {
       VALUES ?id { <ID_SET> }     
 
-      BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
-      ?finalId ^nobel:university ?laureateAward .
+      ?id ^nobel:university ?laureateAward .
       ?laureateAward nobel:category ?category .  
     }
     GROUP BY ?id ?category
@@ -69,8 +66,7 @@ SELECT ?id
       {
         VALUES ?id { <ID_SET> }     
         
-        BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
-        ?finalId ^nobel:university ?laureateAward .
+        ?id ^nobel:university ?laureateAward .
         ?laureateAward nobel:category ?category .  
       }
       GROUP BY ?id ?category
@@ -89,8 +85,7 @@ SELECT ?id
     {
       VALUES ?id { <ID_SET> }
       
-      BIND(IF(EXISTS {?id a dbo:University}, ?id, IRI(CONCAT("http://data.nobelprize.org/resource/university/", ENCODE_FOR_URI(REPLACE(STR(?id), "^.*\\\\/(.+)", "$1"))))) as ?finalId)
-      ?finalId a dbo:University ;
+      ?id a dbo:University ;
                ^nobel:university ?laureateAward .
     }
     GROUP BY ?id
