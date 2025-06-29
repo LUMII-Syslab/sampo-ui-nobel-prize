@@ -451,6 +451,9 @@
             "sortDirection": "desc"
         },
         "gender": {
+            "sortByPredicate": "foaf:gender"
+        },
+        "type":{
             "containerClass": "three",
             "facetType": "list",
             "filterType": "uriFilter",
@@ -460,12 +463,12 @@
             "literal":true,
             "sortButton": false,
             "pieChartButton": true,
-            "sortByPredicate": "foaf:gender",
             "sortBy": "instanceCount",
             "sortDirection": "desc"
         },
         "birthPlaceLabel": {
-            "sortByPredicate": "nobel:birthPlaceLabel"
+            "sortByPredicate": "dbo:birthPlace/rdfs:label",
+            "sortByValueFilter": "FILTER(LANG(?orderBy)='en')"
         },
         "birthDate":{
             "sortByPredicate": "dbp:dateOfBirth"

@@ -247,7 +247,11 @@
           "description":"The location of founding of the institution"
         },
         "gender": {
-          "label": "Type",
+          "label": "Gender",
+          "description": "The gender of the laureate."
+        },
+        "type": {
+          "label": "Gender or type",
           "description": "The gender of the laureate. If no gender specified, then assumed to be organization.",
           "missingValueLabel": "Organization"
         },
