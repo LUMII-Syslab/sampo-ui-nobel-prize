@@ -347,7 +347,7 @@ const TopBar = props => {
                 sx={theme => ({
                   height: 28,
                   [theme.breakpoints.up(props.layoutConfig.reducedHeightBreakpoint)]: {
-                    height: 50
+                    height: 48
                   }
                 })}
               />

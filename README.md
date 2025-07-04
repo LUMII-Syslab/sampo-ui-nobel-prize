@@ -2,7 +2,13 @@
 
 # Nobel Prize SAMPO portal
 
-A semantic portal for Nobel prize linked data (https://data.nobelprize.org/) official SPARQL endpoint https://data.nobelprize.org/store/sparql browsing and analysis
+A semantic portal for Nobel prize linked data (https://data.nobelprize.org/) official SPARQL endpoint https://data.nobelprize.org/store/sparql browsing and analysis.
+
+**Note:**
+
+This repository has been created using as base [SAMPO-UI](https://github.com/SemanticComputing/sampo-ui) repository, which is licensed under the MIT License.
+
+Modifications in this repository are licensed under the MIT licence. See [LICENCE-CUSTOM.md](LICENCE-CUSTOM.md) for more details.
 
 ## Portal setup locally
 
