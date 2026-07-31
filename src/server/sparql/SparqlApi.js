@@ -3,6 +3,8 @@ import querystring from 'querystring'
 
 import { applyPostProcessing } from './Utils'
 
+const SAMPO_UA_STRING = 'NobelPrizesSampoPortal/1.0 (https://nobel-prize-sampo.lumii.lv; info@lumii.lv)'
+
 export const runSelectQuery = async ({
   query,
   endpoint,
@@ -18,6 +20,7 @@ export const runSelectQuery = async ({
     : 'text/csv; charset=utf-8'
   const headers = {
     'Content-Type': 'application/x-www-form-urlencoded',
+    'User-Agent': SAMPO_UA_STRING,
     Accept: MIMEtype
   }
   if (useAuth) {
